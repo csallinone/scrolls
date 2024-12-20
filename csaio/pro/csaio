@@ -1,18 +1,23 @@
 #csallinone
-web - webDesign 
-js - JavaScript Algorithms and Data Structures (Beta)
-fed - Front End Development Libraries
-bed - Back End Development and APIs
+
+#web
+wd - webDesign 
+js - javaScript Algorithms and Data Structures (Beta)
+fed - front End Development (libraries)
+bed - back End Development (APIs)
 
 #db
-dv - Data visualization 
+dv - data visualization 
 rdb - relational database
-qa - Quality Assurance 
+qa - quality assurance 
 
 #devOps
-is - Information security
+ps - powerShell
+ls - linuxShell
+is - information security
+
 
 #Programming:
 pyml - python - machine learning
-pysc - python - Scientific Computing
+pysc - python - scientific computing
 pyda - python - data analysis

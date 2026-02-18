@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - All Subjects</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        /* Study Navigation Panel */
+        .study-panel {
+            flex: 3;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            flex: 2;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        /* Category Styles */
+        .category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        /* Subcategory Styles */
+        .subcategory {
+            margin-bottom: 25px;
+            margin-left: 20px;
+        }
+        
+        .subcategory-title {
+            color: #34495e;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #e74c3c;
+        }
+        
+        /* Tutorial Links */
+        .tutorial-list {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        .tutorial-item {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #2ecc71;
+            transition: all 0.2s ease;
+        }
+        
+        .tutorial-item:hover {
+            background: #eef5ff;
+            transform: translateX(5px);
+        }
+        
+        .tutorial-link {
+            display: block;
+            text-decoration: none;
+            color: #2c3e50;
+        }
+        
+        .tutorial-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .tutorial-description {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+            margin-left: 5px;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-warning:hover {
+            background: #d68910;
+        }
+        
+        /* Management Lists */
+        .management-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .management-item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .study-panel,
+            .admin-panel {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📚 Study Hub</h1>
+            <p>Your central place for all study materials - Simple, Clean, Organized</p>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Study Navigation Panel -->
+            <div class="study-panel" id="studyPanel">
+                <!-- Content will be loaded here from localStorage -->
+                <div id="studyContent">
+                    <p>Loading study materials...</p>
+                </div>
+            </div>
+            
+            <!-- Admin Panel -->
+            <div class="admin-panel">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📋 Content Management</h2>
+                
+                <!-- Add New Category -->
+                <div class="admin-section">
+                    <h3>➕ Add New Category</h3>
+                    <div class="form-group">
+                        <label for="newCategory">Category Name:</label>
+                        <input type="text" id="newCategory" placeholder="e.g., ComputerScience, Programming, DevOps...">
+                    </div>
+                    <button class="btn btn-primary" onclick="addCategory()">Add Category</button>
+                </div>
+                
+                <!-- Add New Subcategory -->
+                <div class="admin-section">
+                    <h3>📂 Add New Subcategory</h3>
+                    <div class="form-group">
+                        <label for="parentCategory">Select Category:</label>
+                        <select id="parentCategory" onchange="loadCategorySubcategories()">
+                            <option value="">-- Select a Category --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newSubcategory">Subcategory Name:</label>
+                        <input type="text" id="newSubcategory" placeholder="e.g., Python, Oracle, ProjectManagement...">
+                    </div>
+                    <button class="btn btn-primary" onclick="addSubcategory()">Add Subcategory</button>
+                </div>
+                
+                <!-- Add New Tutorial Link -->
+                <div class="admin-section">
+                    <h3>🔗 Add New Tutorial Link</h3>
+                    <div class="form-group">
+                        <label for="linkCategory">Select Category:</label>
+                        <select id="linkCategory" onchange="loadSubcategories()">
+                            <option value="">-- Select a Category --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkSubcategory">Select Subcategory:</label>
+                        <select id="linkSubcategory">
+                            <option value="">-- Select a Subcategory --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newLinkTitle">Link Title:</label>
+                        <input type="text" id="newLinkTitle" placeholder="e.g., PostgreSQL Installation Guide">
+                    </div>
+                    <div class="form-group">
+                        <label for="newLinkUrl">Link URL (HTML file):</label>
+                        <input type="text" id="newLinkUrl" placeholder="e.g., postgres-tutorial.html">
+                    </div>
+                    <div class="form-group">
+                        <label for="newLinkDesc">Description:</label>
+                        <textarea id="newLinkDesc" placeholder="Brief description of what this tutorial covers"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addTutorialLink()">Add Tutorial Link</button>
+                </div>
+                
+                <!-- Manage Existing Content -->
+                <div class="admin-section">
+                    <h3>🗂️ Manage Existing Content</h3>
+                    
+                    <div class="form-group">
+                        <label>Categories:</label>
+                        <div id="categoriesList" class="management-list">
+                            <!-- Categories will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Subcategories:</label>
+                        <div id="subcategoriesList" class="management-list">
+                            <!-- Subcategories will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tutorial Links:</label>
+                        <div id="linksList" class="management-list">
+                            <!-- Links will be listed here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Management -->
+                <div class="admin-section">
+                    <h3>💾 Data Management</h3>
+                    <button class="btn btn-secondary" onclick="saveToFile()">💾 Export Data</button>
+                    <button class="btn btn-secondary" onclick="loadFromFile()">📂 Import Data</button>
+                    <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
+                </div>
+                
+                <!-- Instructions -->
+                <div class="admin-section" style="border: none;">
+                    <h3>📝 How to Use</h3>
+                    <ol style="color: #555; padding-left: 20px; font-size: 0.9rem;">
+                        <li>Add a Category (main subject like "PostgreSQL")</li>
+                        <li>Add a Subcategory (topic within subject like "Basics")</li>
+                        <li>Add Tutorial Links with descriptions</li>
+                        <li>Your content is automatically saved in browser</li>
+                        <li>Export data to backup your study materials</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer style="text-align: center; color: #7f8c8d; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p>Study Hub - Keep It Simple & Organized</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data structure
+        let studyData = {
+            categories: [
+                {
+                    id: 1,
+                    name: "PostgreSQL",
+                    subcategories: [
+                        {
+                            id: 101,
+                            name: "Basics",
+                            links: [
+                                {
+                                    id: 1001,
+                                    title: "PostgreSQL 18 - Complete Developer Guide",
+                                    url: "PostgreSQL18-www.html",
+                                    description: "Complete guide covering installation, SQL operations, data types, performance tuning"
+                                }
+                            ]
+                        },
+                        {
+                            id: 102,
+                            name: "Advanced",
+                            links: [
+                                {
+                                    id: 1002,
+                                    title: "Performance Tuning Deep Dive",
+                                    url: "performance-tuning.html",
+                                    description: "Query optimization and indexing strategies"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "JavaScript",
+                    subcategories: [
+                        {
+                            id: 201,
+                            name: "Core Concepts",
+                            links: [
+                                {
+                                    id: 2001,
+                                    title: "Modern JavaScript Guide",
+                                    url: "js-guide.html",
+                                    description: "ES6+ features and modern JavaScript patterns"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data or use default
+            const savedData = localStorage.getItem('studyHubData');
+            if (savedData) {
+                studyData = JSON.parse(savedData);
+            }
+            
+            // Render study content
+            renderStudyContent();
+            
+            // Populate admin dropdowns
+            populateCategoryDropdowns();
+            renderManagementLists();
+        });
+
+        // Render study content
+        function renderStudyContent() {
+            const container = document.getElementById('studyContent');
+            let html = '';
+            
+            if (studyData.categories.length === 0) {
+                html = '<p style="color: #7f8c8d; text-align: center; padding: 40px;">No study materials yet. Use the admin panel to add content.</p>';
+            } else {
+                studyData.categories.forEach(category => {
+                    html += `<div class="category">
+                                <h2 class="category-title">${category.name}</h2>`;
+                    
+                    if (category.subcategories && category.subcategories.length > 0) {
+                        category.subcategories.forEach(subcategory => {
+                            html += `<div class="subcategory">
+                                        <h3 class="subcategory-title">${subcategory.name}</h3>
+                                        <ul class="tutorial-list">`;
+                            
+                            if (subcategory.links && subcategory.links.length > 0) {
+                                subcategory.links.forEach(link => {
+                                    html += `<li class="tutorial-item">
+                                                <a href="${link.url}" class="tutorial-link" target="_blank">
+                                                    <div class="tutorial-title">${link.title}</div>
+                                                    <div class="tutorial-description">${link.description}</div>
+                                                </a>
+                                            </li>`;
+                                });
+                            } else {
+                                html += `<li style="color: #95a5a6; font-style: italic;">No tutorials yet</li>`;
+                            }
+                            
+                            html += `</ul></div>`;
+                        });
+                    } else {
+                        html += `<p style="color: #95a5a6; font-style: italic; margin-left: 20px;">No subcategories yet</p>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Admin Functions
+        function addCategory() {
+            const nameInput = document.getElementById('newCategory');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Please enter a category name');
+                return;
+            }
+            
+            // Generate unique ID
+            const newId = Date.now();
+            
+            studyData.categories.push({
+                id: newId,
+                name: name,
+                subcategories: []
+            });
+            
+            saveData();
+            nameInput.value = '';
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+            
+            alert(`Category "${name}" added successfully!`);
+        }
+
+        function addSubcategory() {
+            const categoryId = parseInt(document.getElementById('parentCategory').value);
+            const nameInput = document.getElementById('newSubcategory');
+            const name = nameInput.value.trim();
+            
+            if (!categoryId || !name) {
+                alert('Please select a category and enter a subcategory name');
+                return;
+            }
+            
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const newId = Date.now();
+            
+            if (!category.subcategories) {
+                category.subcategories = [];
+            }
+            
+            category.subcategories.push({
+                id: newId,
+                name: name,
+                links: []
+            });
+            
+            saveData();
+            nameInput.value = '';
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+            loadCategorySubcategories();
+            
+            alert(`Subcategory "${name}" added successfully!`);
+        }
+
+        function addTutorialLink() {
+            const categoryId = parseInt(document.getElementById('linkCategory').value);
+            const subcategoryId = parseInt(document.getElementById('linkSubcategory').value);
+            const titleInput = document.getElementById('newLinkTitle');
+            const urlInput = document.getElementById('newLinkUrl');
+            const descInput = document.getElementById('newLinkDesc');
+            
+            const title = titleInput.value.trim();
+            const url = urlInput.value.trim();
+            const description = descInput.value.trim();
+            
+            if (!categoryId || !subcategoryId || !title || !url) {
+                alert('Please fill all required fields');
+                return;
+            }
+            
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const subcategory = category.subcategories.find(s => s.id === subcategoryId);
+            if (!subcategory) return;
+            
+            const newId = Date.now();
+            
+            if (!subcategory.links) {
+                subcategory.links = [];
+            }
+            
+            subcategory.links.push({
+                id: newId,
+                title: title,
+                url: url,
+                description: description
+            });
+            
+            saveData();
+            titleInput.value = '';
+            urlInput.value = '';
+            descInput.value = '';
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+            
+            alert(`Tutorial link "${title}" added successfully!`);
+        }
+
+        function loadSubcategories() {
+            const categoryId = parseInt(document.getElementById('linkCategory').value);
+            const subcategorySelect = document.getElementById('linkSubcategory');
+            
+            subcategorySelect.innerHTML = '<option value="">-- Select a Subcategory --</option>';
+            
+            if (!categoryId) return;
+            
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (category && category.subcategories) {
+                category.subcategories.forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat.id;
+                    option.textContent = subcat.name;
+                    subcategorySelect.appendChild(option);
+                });
+            }
+        }
+
+        function loadCategorySubcategories() {
+            const categoryId = parseInt(document.getElementById('parentCategory').value);
+            const subcategorySelect = document.getElementById('linkSubcategory');
+            const linkCategorySelect = document.getElementById('linkCategory');
+            
+            // Also set the link category dropdown to match
+            linkCategorySelect.value = categoryId;
+            
+            // Now load subcategories
+            loadSubcategories();
+        }
+
+        function populateCategoryDropdowns() {
+            const parentSelect = document.getElementById('parentCategory');
+            const linkSelect = document.getElementById('linkCategory');
+            
+            parentSelect.innerHTML = '<option value="">-- Select a Category --</option>';
+            linkSelect.innerHTML = '<option value="">-- Select a Category --</option>';
+            
+            studyData.categories.forEach(category => {
+                const option1 = document.createElement('option');
+                option1.value = category.id;
+                option1.textContent = category.name;
+                parentSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = category.id;
+                option2.textContent = category.name;
+                linkSelect.appendChild(option2);
+            });
+        }
+
+        function renderManagementLists() {
+            // Render categories
+            const categoriesList = document.getElementById('categoriesList');
+            categoriesList.innerHTML = '';
+            
+            studyData.categories.forEach(category => {
+                const div = document.createElement('div');
+                div.className = 'management-item';
+                div.innerHTML = `
+                    <span>${category.name}</span>
+                    <div>
+                        <button class="btn btn-warning btn-small" onclick="editCategory(${category.id})">Edit</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteCategory(${category.id})">Delete</button>
+                    </div>
+                `;
+                categoriesList.appendChild(div);
+            });
+            
+            // Render subcategories
+            const subcategoriesList = document.getElementById('subcategoriesList');
+            subcategoriesList.innerHTML = '';
+            
+            studyData.categories.forEach(category => {
+                if (category.subcategories) {
+                    category.subcategories.forEach(subcat => {
+                        const div = document.createElement('div');
+                        div.className = 'management-item';
+                        div.innerHTML = `
+                            <span>${category.name} → ${subcat.name}</span>
+                            <div>
+                                <button class="btn btn-warning btn-small" onclick="editSubcategory(${category.id}, ${subcat.id})">Edit</button>
+                                <button class="btn btn-danger btn-small" onclick="deleteSubcategory(${category.id}, ${subcat.id})">Delete</button>
+                            </div>
+                        `;
+                        subcategoriesList.appendChild(div);
+                    });
+                }
+            });
+            
+            // Render links
+            const linksList = document.getElementById('linksList');
+            linksList.innerHTML = '';
+            
+            studyData.categories.forEach(category => {
+                if (category.subcategories) {
+                    category.subcategories.forEach(subcat => {
+                        if (subcat.links) {
+                            subcat.links.forEach(link => {
+                                const div = document.createElement('div');
+                                div.className = 'management-item';
+                                div.innerHTML = `
+                                    <div>
+                                        <strong>${link.title}</strong><br>
+                                        <small>${category.name} → ${subcat.name}</small>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-warning btn-small" onclick="editLink(${category.id}, ${subcat.id}, ${link.id})">Edit</button>
+                                        <button class="btn btn-danger btn-small" onclick="deleteLink(${category.id}, ${subcat.id}, ${link.id})">Delete</button>
+                                    </div>
+                                `;
+                                linksList.appendChild(div);
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Edit Functions
+        function editCategory(categoryId) {
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const newName = prompt('Edit category name:', category.name);
+            if (newName === null) return; // User cancelled
+            
+            if (newName.trim() === '') {
+                alert('Category name cannot be empty');
+                return;
+            }
+            
+            category.name = newName.trim();
+            saveData();
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+            alert('Category updated successfully!');
+        }
+
+        function editSubcategory(categoryId, subcategoryId) {
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const subcategory = category.subcategories.find(s => s.id === subcategoryId);
+            if (!subcategory) return;
+            
+            const newName = prompt('Edit subcategory name:', subcategory.name);
+            if (newName === null) return; // User cancelled
+            
+            if (newName.trim() === '') {
+                alert('Subcategory name cannot be empty');
+                return;
+            }
+            
+            subcategory.name = newName.trim();
+            saveData();
+            renderStudyContent();
+            renderManagementLists();
+            alert('Subcategory updated successfully!');
+        }
+
+        function editLink(categoryId, subcategoryId, linkId) {
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (!category) return;
+            
+            const subcategory = category.subcategories.find(s => s.id === subcategoryId);
+            if (!subcategory) return;
+            
+            const link = subcategory.links.find(l => l.id === linkId);
+            if (!link) return;
+            
+            const newTitle = prompt('Edit link title:', link.title);
+            if (newTitle === null) return;
+            
+            if (newTitle.trim() === '') {
+                alert('Link title cannot be empty');
+                return;
+            }
+            
+            const newUrl = prompt('Edit link URL:', link.url);
+            if (newUrl === null) return;
+            
+            if (newUrl.trim() === '') {
+                alert('Link URL cannot be empty');
+                return;
+            }
+            
+            const newDescription = prompt('Edit link description:', link.description);
+            if (newDescription === null) return;
+            
+            link.title = newTitle.trim();
+            link.url = newUrl.trim();
+            link.description = newDescription.trim();
+            
+            saveData();
+            renderStudyContent();
+            renderManagementLists();
+            alert('Link updated successfully!');
+        }
+
+        function deleteCategory(categoryId) {
+            if (!confirm('Are you sure you want to delete this category and all its contents?')) {
+                return;
+            }
+            
+            studyData.categories = studyData.categories.filter(c => c.id !== categoryId);
+            saveData();
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+        }
+
+        function deleteSubcategory(categoryId, subcategoryId) {
+            if (!confirm('Are you sure you want to delete this subcategory and all its links?')) {
+                return;
+            }
+            
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (category && category.subcategories) {
+                category.subcategories = category.subcategories.filter(s => s.id !== subcategoryId);
+            }
+            
+            saveData();
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+        }
+
+        function deleteLink(categoryId, subcategoryId, linkId) {
+            if (!confirm('Are you sure you want to delete this link?')) {
+                return;
+            }
+            
+            const category = studyData.categories.find(c => c.id === categoryId);
+            if (category) {
+                const subcategory = category.subcategories.find(s => s.id === subcategoryId);
+                if (subcategory && subcategory.links) {
+                    subcategory.links = subcategory.links.filter(l => l.id !== linkId);
+                }
+            }
+            
+            saveData();
+            renderStudyContent();
+            renderManagementLists();
+        }
+
+        function saveData() {
+            localStorage.setItem('studyHubData', JSON.stringify(studyData));
+        }
+
+        function saveToFile() {
+            const dataStr = JSON.stringify(studyData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'study-hub-data.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function loadFromFile() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                        studyData = importedData;
+                        saveData();
+                        renderStudyContent();
+                        populateCategoryDropdowns();
+                        renderManagementLists();
+                        alert('Data imported successfully!');
+                    } catch (error) {
+                        alert('Error importing data. Please check the file format.');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        function clearAllData() {
+            if (!confirm('WARNING: This will delete ALL your study materials. Are you sure?')) {
+                return;
+            }
+            
+            if (!confirm('This cannot be undone. Are you absolutely sure?')) {
+                return;
+            }
+            
+            studyData = { categories: [] };
+            localStorage.removeItem('studyHubData');
+            renderStudyContent();
+            populateCategoryDropdowns();
+            renderManagementLists();
+            alert('All data has been cleared.');
+        }
+    </script>
+</body>
+</html>

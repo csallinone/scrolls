@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AZ-900 study notes: cloud concepts and Azure services</title>
-<meta name="description" content="One-page AZ-900 reference: cloud concepts, service and deployment models, benefits, Azure architecture and a services and tools table, with search.">
+<meta name="description" content="One-page AZ-900 reference with search and a 50-question practice exam: cloud concepts, service and deployment models, benefits, Azure architecture and a services and tools table.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b5cab'/%3E%3Cpath d='M14 46 28 16h8l14 30h-9l-3-7H26l-3 7zm14-14h8l-4-10z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -105,6 +105,118 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 2px}
 
 footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
 
+
+/* colour palette and tabs */
+:root{--c1:#0b5cab;--c1s:#e2eefa;--c2:#0f766e;--c2s:#dcf3ef;--c3:#b45309;--c3s:#fdecd3;--c4:#6d4aaf;--c4s:#ece5f8;--c5:#be3455;--c5s:#fbe4ea;--c6:#2f7d32;--c6s:#e3f3e3;--c7:#3b4cc0;--c7s:#e4e8fb;--c8:#7a5c2e;--c8s:#f1eadf}
+:root[data-theme="dark"]{--c1:#74b6f4;--c1s:#183049;--c2:#5fd3c6;--c2s:#14332f;--c3:#f2a65f;--c3s:#3b2a18;--c4:#b79cf0;--c4s:#2a2142;--c5:#f48aa4;--c5s:#3d1f29;--c6:#7fd27f;--c6s:#1d3320;--c7:#8ea2ff;--c7s:#1f2547;--c8:#d2b27a;--c8s:#33291a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#74b6f4;--c1s:#183049;--c2:#5fd3c6;--c2s:#14332f;--c3:#f2a65f;--c3s:#3b2a18;--c4:#b79cf0;--c4s:#2a2142;--c5:#f48aa4;--c5s:#3d1f29;--c6:#7fd27f;--c6s:#1d3320;--c7:#8ea2ff;--c7s:#1f2547;--c8:#d2b27a;--c8s:#33291a}}
+.c1{--tc:var(--c1);--ts:var(--c1s)}.c2{--tc:var(--c2);--ts:var(--c2s)}.c3{--tc:var(--c3);--ts:var(--c3s)}.c4{--tc:var(--c4);--ts:var(--c4s)}
+.c5{--tc:var(--c5);--ts:var(--c5s)}.c6{--tc:var(--c6);--ts:var(--c6s)}.c7{--tc:var(--c7);--ts:var(--c7s)}.c8{--tc:var(--c8);--ts:var(--c8s)}
+
+section{--sc:var(--c1)}
+#service-types{--sc:var(--c3)}#deployment{--sc:var(--c2)}#benefits{--sc:var(--c6)}#azure{--sc:var(--c4)}#reference{--sc:var(--c5)}#exam{--sc:var(--c7)}
+section>h2{border-bottom:3px solid var(--sc)}
+.options div{border-top:4px solid var(--tc)}
+.options b{color:var(--ink)}
+
+.side nav a{position:relative;padding-left:26px}
+.side nav a::before{content:"";position:absolute;left:11px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--dot,var(--muted))}
+#toc a[href="#cloud"]{--dot:var(--c1)}#toc a[href="#service-types"]{--dot:var(--c3)}#toc a[href="#deployment"]{--dot:var(--c2)}
+#toc a[href="#benefits"]{--dot:var(--c6)}#toc a[href="#azure"]{--dot:var(--c4)}#toc a[href="#reference"]{--dot:var(--c5)}#toc a[href="#exam"]{--dot:var(--c7)}
+.side nav a[aria-current="true"]{border-left-color:var(--dot,var(--blue))}
+
+.tabs{margin:18px 0 0}
+.tablist{display:flex;flex-wrap:wrap;gap:6px;padding:6px;background:var(--head);border-radius:14px}
+.tablist [role="tab"]{font:inherit;font-weight:600;font-size:.95rem;line-height:1.2;border:0;background:transparent;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:40px}
+.tablist [role="tab"]::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--tc);flex:none}
+.tablist [role="tab"]:hover{color:var(--ink);background:color-mix(in srgb,var(--ts) 75%,transparent)}
+.tablist [role="tab"][aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--tc)}
+.tp{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--tc);border-radius:0 0 14px 14px;padding:20px 22px;margin-top:10px}
+.tp[hidden]{display:none}
+.phead{font:700 1.3rem/1.3 var(--serif);margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
+.phead small{font:600 .95rem/1.3 var(--sans);color:var(--tc)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pair>div{background:var(--ts);border-radius:12px;padding:14px 16px}
+.pair h4{margin:0 0 6px;font:700 .98rem/1.3 var(--sans);color:var(--tc)}
+.pair p{margin:0;max-width:none}
+.tp .tablewrap{margin:0;border-radius:12px}
+.tp thead th{background:var(--ts)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--ts);color:var(--ink);border:1px solid color-mix(in srgb,var(--tc) 38%,transparent);font-size:.9rem;line-height:1.35}
+.tp tbody th[scope="row"]{width:24%}
+body.searching .tablist{display:none}
+@media print{.tablist{display:none}.tp[hidden]{display:block}}
+
+/* practice exam */
+.btn{font:inherit;font-weight:600;font-size:.95rem;padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0e1620}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#0e1620}}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.xcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:20px 0}
+.xcard h3{margin:0 0 10px}
+.xopts{display:flex;flex-wrap:wrap;gap:8px 26px;margin:6px 0 16px}
+.xopts label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.xstart{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
+.fine{color:var(--muted);font-size:.9rem;max-width:72ch}
+.xbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.xbar .prog{font-weight:600}
+.xbar .tm{font-variant-numeric:tabular-nums;font-weight:600;color:var(--muted)}
+.meter{height:6px;background:var(--head);border-radius:6px;overflow:hidden;margin:0 0 18px}
+.meter>span{display:block;height:100%;background:var(--blue);width:0;transition:width .25s}
+.xq{font:700 1.2rem/1.45 var(--serif);margin:0 0 16px;outline:none;max-width:70ch}
+.dom{display:inline-block;font:600 .8rem/1 var(--sans);color:var(--blue);background:var(--blue-soft);padding:4px 9px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;margin:0 0 8px;cursor:pointer;background:var(--card)}
+.opt:hover{border-color:var(--blue)}
+.opt input{margin-top:4px;flex:none;width:18px;height:18px;accent-color:var(--blue)}
+.opt:has(input:checked){border-color:var(--blue);background:var(--blue-soft)}
+.opt.ok,.opt.ok:has(input:checked){border-color:#1a7f4b;background:color-mix(in srgb,#1a7f4b 14%,var(--card))}
+.opt.no,.opt.no:has(input:checked){border-color:#b42318;background:color-mix(in srgb,#b42318 12%,var(--card))}
+.tag{display:inline-block;font:600 .78rem/1 var(--sans);padding:3px 8px;border-radius:999px;margin-left:8px;vertical-align:1px}
+.tag.ok{background:#1a7f4b;color:#fff}.tag.no{background:#b42318;color:#fff}.tag.you{background:var(--head);color:var(--ink);border:1px solid var(--line)}
+table.yn{width:100%;border-collapse:collapse;margin:0 0 8px}
+table.yn td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.yn td.c{width:74px;text-align:center;white-space:nowrap}
+table.yn label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+table.yn tr.ok td{background:color-mix(in srgb,#1a7f4b 12%,var(--card))}
+table.yn tr.no td{background:color-mix(in srgb,#b42318 10%,var(--card))}
+.fb{margin:12px 0 0;padding:14px 16px;border-radius:10px;border-left:5px solid;background:var(--blue-soft);border-color:var(--blue);max-width:74ch}
+.fb.ok{border-color:#1a7f4b}.fb.no{border-color:#b42318}
+.fb b{display:block;margin-bottom:2px}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px;align-items:center}
+.nav .sp{flex:1}
+.flag[aria-pressed="true"]{border-color:#b7791f;background:color-mix(in srgb,#f2a900 22%,var(--card))}
+.qmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin:16px 0 0;max-width:620px}
+.qmap button{font:inherit;font-size:.88rem;font-weight:600;padding:7px 0;border-radius:8px;border:1.5px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+.qmap button.done{background:var(--blue-soft);color:var(--ink);border-color:var(--blue)}
+.qmap button.flag{border-color:#b7791f}
+.qmap button[aria-current="true"]{box-shadow:0 0 0 2px var(--ink)}
+.score{display:flex;flex-wrap:wrap;gap:18px 40px;align-items:center;margin:4px 0 16px}
+.score .big{font:700 2.6rem/1 var(--serif)}
+.doms{display:grid;gap:10px;margin:14px 0 6px;max-width:640px}
+.doms div{display:grid;grid-template-columns:190px 1fr 64px;align-items:center;gap:12px;font-size:.95rem}
+.doms .track{height:12px;background:var(--head);border-radius:8px;overflow:hidden}
+.doms .track i{display:block;height:100%;background:var(--blue)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 10px}
+.filters button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 14px}
+.rev h4{font:700 1.05rem/1.45 var(--serif);margin:0 0 10px;max-width:70ch}
+.rev .st{display:inline-block;font:600 .8rem/1 var(--sans);padding:4px 9px;border-radius:999px;margin-right:8px}
+.rev .st.ok{background:#1a7f4b;color:#fff}.rev .st.no{background:#b42318;color:#fff}
+.rev .new{font-size:.88rem;color:var(--muted);margin:8px 0 0}
+details.key{margin:26px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:4px 18px}
+details.key summary{cursor:pointer;padding:12px 0;font-weight:600}
+details.key table{margin:6px 0 16px;font-size:.92rem}
+.warnmsg{margin:10px 0 0;color:#b7791f;font-weight:600}
+@media (max-width:720px){
+  .doms div{grid-template-columns:1fr 64px}
+  .doms div span:first-child{grid-column:1/-1}
+  table.yn td.c{width:60px}
+  .xq{font-size:1.1rem}
+}
+@media print{#examApp .xcard,#examApp .nav,.qmap,.filters{display:none}.rev{break-inside:avoid}}
+
 /* small screens */
 @media (max-width:960px){
   .frame{display:block;padding:0 18px}
@@ -122,14 +234,14 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
 }
 @media (max-width:720px){
   .options{grid-template-columns:1fr}
-  table,thead,tbody,tr,th,td,caption{display:block}
-  thead{position:absolute;left:-9999px}
-  tbody tr:not(.group){padding:10px 14px;border-bottom:1px solid var(--line)}
-  tbody tr:last-child{border-bottom:0}
-  tbody th[scope="row"]{width:auto;padding:0 0 6px;border:0;font-size:1rem}
-  td{padding:4px 0;border:0}
-  td[data-l]::before{content:attr(data-l);display:block;font-size:.78rem;color:var(--muted);font-weight:600}
-  tr.group th{padding:9px 14px}
+  .tablewrap table,.tablewrap thead,.tablewrap tbody,.tablewrap tr,.tablewrap th,.tablewrap td,.tablewrap caption{display:block}
+  .tablewrap thead{position:absolute;left:-9999px}
+  .tablewrap tbody tr:not(.group){padding:10px 14px;border-bottom:1px solid var(--line)}
+  .tablewrap tbody tr:last-child{border-bottom:0}
+  .tablewrap tbody th[scope="row"]{width:auto;padding:0 0 6px;border:0;font-size:1rem}
+  .tablewrap td{padding:4px 0;border:0}
+  .tablewrap td[data-l]::before{content:attr(data-l);display:block;font-size:.78rem;color:var(--muted);font-weight:600}
+  .tablewrap tr.group th{padding:9px 14px}
   .layers li{grid-template-columns:1fr;gap:4px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.layers .bar{transition:none}}
@@ -139,6 +251,20 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
   body{background:#fff;color:#000}
   section{break-inside:auto}
   .tablewrap,.resp,.options div{border-color:#999;break-inside:avoid}
+}
+
+/* tabs on small screens (placed last so it wins) */
+@media (max-width:960px){
+  .side nav a{padding-left:26px}
+  .side nav a::before{left:11px}
+}
+@media (max-width:720px){
+  .pair{grid-template-columns:1fr}
+  .tp{padding:16px}
+  .tablist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .tablist.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tablist [role="tab"]{white-space:normal;text-align:left;min-height:46px;padding:8px 10px;font-size:.9rem;line-height:1.2}
+  .tp tbody th[scope="row"]{width:auto}
 }
 </style>
 </head>
@@ -154,6 +280,7 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
       <a href="#benefits">Cloud benefits</a>
       <a href="#azure">Azure overview</a>
       <a href="#reference">Services and tools</a>
+      <a href="#exam">Practice exam</a>
     </nav>
     <div class="tools">
       <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Switch theme</button>
@@ -180,9 +307,9 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
       <p class="lede">Almost every modern business relies on IT infrastructure. Depending on its needs, size and reach, that can mean anything from a server room to large data centres with powerful computers, storage, networking and security hardware, uninterrupted power, generators, several fail-safes and clustered database servers.</p>
       <p>Instead of owning that infrastructure on-premises, with its high CapEx and OpEx, a business can rent infrastructure that it reaches over the internet. That gives three options.</p>
       <div class="options">
-        <div><b>On-premises</b><span>The business owns and runs its own IT infrastructure.</span></div>
-        <div><b>On the cloud</b><span>The business rents infrastructure from a provider and reaches it over the internet.</span></div>
-        <div><b>Hybrid cloud</b><span>A combination of on-premises and cloud infrastructure.</span></div>
+        <div class="c3"><b>On-premises</b><span>The business owns and runs its own IT infrastructure.</span></div>
+        <div class="c1"><b>On the cloud</b><span>The business rents infrastructure from a provider and reaches it over the internet.</span></div>
+        <div class="c2"><b>Hybrid cloud</b><span>A combination of on-premises and cloud infrastructure.</span></div>
       </div>
       <div class="note"><strong>Why the cloud can share hardware:</strong> cloud infrastructure is virtualised. A software layer called a hypervisor divides physical datacentre hardware (servers, storage, network) into isolated virtual resources. Businesses can then provision and manage virtual machines, networks and storage without ever touching the physical hardware.</div>
       <p>Microsoft (Azure), Amazon (AWS) and Google (GCP) are three globally recognised cloud providers. They operate massive global networks of datacentres, so whether a business needs web hosting, database servers or complex applications, the scalable infrastructure is there to meet almost any goal.</p>
@@ -190,8 +317,8 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
 
     <!-- ============ SERVICE TYPES ============ -->
     <section id="service-types" data-sec>
-      <h2>Cloud service types: IaaS, PaaS and SaaS</h2>
-      <p class="lede">The service type decides how much you manage and how much the provider manages.</p>
+      <h2>Cloud service types</h2>
+      <p class="lede">The service type decides how much you manage and how much the provider manages. Pick a type to see who manages each layer, then read its definition and a real-world case.</p>
 
       <div class="resp" id="resp">
         <h3>Who manages what</h3>
@@ -206,202 +333,49 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
         <p class="fine">You always manage your own user accounts, licences and who may see your data.</p>
       </div>
 
-      <div class="tablewrap">
-        <table>
-          <caption>Service types with a practical example</caption>
-          <thead><tr><th>Service type</th><th>Definition and maintenance</th><th>Real-world example</th></tr></thead>
-          <tbody>
-            <tr data-row><th scope="row">IaaS<br><span class="e">Infrastructure as a Service</span></th>
-              <td data-l="Definition and maintenance">You rent the raw infrastructure (virtual servers, storage, networks). You are responsible for managing the OS, runtime and applications.</td>
-              <td data-l="Real-world example"><b>Lift-and-shift migration.</b> A company moves its legacy Windows Server 2012 application to an Azure VM. Microsoft manages the physical hardware, but the company must still patch the OS and update the app.</td></tr>
-            <tr data-row><th scope="row">PaaS<br><span class="e">Platform as a Service</span></th>
-              <td data-l="Definition and maintenance">You rent a fully managed platform (OS, runtime, middleware) to deploy your code. You manage only the application and data.</td>
-              <td data-l="Real-world example"><b>Web app hosting.</b> A startup deploys a Python e-commerce site to Azure App Service. Microsoft handles OS patches and web server configuration, so the developers can focus on pushing new code.</td></tr>
-            <tr data-row><th scope="row">SaaS<br><span class="e">Software as a Service</span></th>
-              <td data-l="Definition and maintenance">You use a complete, ready-to-use application over the internet. The provider manages everything: infrastructure, platform and software.</td>
-              <td data-l="Real-world example"><b>Microsoft 365.</b> A corporation uses Outlook for email and Teams for chat. The IT team manages no servers or code, only user accounts and licences.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <h3>Definition and example for each type</h3>
+      <div class="tabs" id="svcTabs" data-tabs><div class="tablist n3" role="tablist" aria-label="Service types"><button type="button" role="tab" class="c4" id="svcTabs-t0" aria-controls="svcTabs-p0" aria-selected="true" tabindex="0" data-key="iaas">IaaS</button><button type="button" role="tab" class="c2" id="svcTabs-t1" aria-controls="svcTabs-p1" aria-selected="false" tabindex="-1" data-key="paas">PaaS</button><button type="button" role="tab" class="c5" id="svcTabs-t2" aria-controls="svcTabs-p2" aria-selected="false" tabindex="-1" data-key="saas">SaaS</button></div><div role="tabpanel" class="tp c4" id="svcTabs-p0" aria-labelledby="svcTabs-t0" data-item><h3 class="phead">IaaS<small>Infrastructure as a Service</small></h3><div class="pair"><div><h4>Definition and maintenance</h4><p>You rent the raw infrastructure (virtual servers, storage, networks). You are responsible for managing the OS, runtime and applications.</p></div><div><h4>Real-world example</h4><p><b>Lift-and-shift migration.</b> A company moves its legacy Windows Server 2012 application to an Azure VM. Microsoft manages the physical hardware, but the company must still patch the OS and update the app.</p></div></div></div><div role="tabpanel" class="tp c2" id="svcTabs-p1" aria-labelledby="svcTabs-t1" data-item hidden><h3 class="phead">PaaS<small>Platform as a Service</small></h3><div class="pair"><div><h4>Definition and maintenance</h4><p>You rent a fully managed platform (OS, runtime, middleware) to deploy your code. You manage only the application and data.</p></div><div><h4>Real-world example</h4><p><b>Web app hosting.</b> A startup deploys a Python e-commerce site to Azure App Service. Microsoft handles OS patches and web server configuration, so the developers can focus on pushing new code.</p></div></div></div><div role="tabpanel" class="tp c5" id="svcTabs-p2" aria-labelledby="svcTabs-t2" data-item hidden><h3 class="phead">SaaS<small>Software as a Service</small></h3><div class="pair"><div><h4>Definition and maintenance</h4><p>You use a complete, ready-to-use application over the internet. The provider manages everything: infrastructure, platform and software.</p></div><div><h4>Real-world example</h4><p><b>Microsoft 365.</b> A corporation uses Outlook for email and Teams for chat. The IT team manages no servers or code, only user accounts and licences.</p></div></div></div></div>
     </section>
 
     <!-- ============ DEPLOYMENT MODELS ============ -->
     <section id="deployment" data-sec>
       <h2>Cloud deployment models</h2>
-      <p class="lede">Deployment models describe who the infrastructure is shared with.</p>
-      <div class="tablewrap">
-        <table>
-          <caption>Deployment models with a practical example</caption>
-          <thead><tr><th>Model</th><th>Definition</th><th>Real-world example</th></tr></thead>
-          <tbody>
-            <tr data-row><th scope="row">Public cloud</th>
-              <td data-l="Definition">Infrastructure is owned by a third-party provider (Microsoft, AWS, Google) and shared securely among multiple unrelated customers over the internet.</td>
-              <td data-l="Real-world example">A startup hosts its new mobile app backend on Azure App Service. It shares the physical servers with other companies but pays only for its own usage.</td></tr>
-            <tr data-row><th scope="row">Private cloud</th>
-              <td data-l="Definition">Infrastructure is dedicated exclusively to a single organisation, offering maximum control, security and compliance.</td>
-              <td data-l="Real-world example">A hospital builds its own private cloud on-premises to store patient medical records, keeping strict HIPAA compliance and total control over data residency.</td></tr>
-            <tr data-row><th scope="row">Hybrid cloud</th>
-              <td data-l="Definition">A combination of an on-premises private cloud and a public cloud, allowing data and applications to move between them.</td>
-              <td data-l="Real-world example">A retail bank keeps sensitive customer account databases in its own private datacentre, but uses the public Azure cloud to host its customer-facing website so it can scale in peak shopping seasons.</td></tr>
-            <tr data-row><th scope="row">Community cloud</th>
-              <td data-l="Definition">Infrastructure is shared by several organisations that have common concerns, such as mission, security or compliance requirements.</td>
-              <td data-l="Real-world example">Several government agencies in the same region share a community cloud to host citizen services, cutting costs while meeting shared, strict security regulations.</td></tr>
-            <tr data-row><th scope="row">Multi-cloud</th>
-              <td data-l="Definition">Using services from two or more public cloud providers at the same time, to avoid vendor lock-in or to use best-of-breed services.</td>
-              <td data-l="Real-world example">A global enterprise uses Azure for its Windows-based enterprise applications and AWS for its machine learning workloads, so no single provider failure takes down the whole business.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p class="lede">Deployment models describe who the infrastructure is shared with. Pick a model to see its definition and an example.</p>
+      <div class="tabs" id="depTabs" data-tabs><div class="tablist n5" role="tablist" aria-label="Deployment models"><button type="button" role="tab" class="c1" id="depTabs-t0" aria-controls="depTabs-p0" aria-selected="true" tabindex="0" data-key="public">Public cloud</button><button type="button" role="tab" class="c4" id="depTabs-t1" aria-controls="depTabs-p1" aria-selected="false" tabindex="-1" data-key="private">Private cloud</button><button type="button" role="tab" class="c2" id="depTabs-t2" aria-controls="depTabs-p2" aria-selected="false" tabindex="-1" data-key="hybrid">Hybrid cloud</button><button type="button" role="tab" class="c3" id="depTabs-t3" aria-controls="depTabs-p3" aria-selected="false" tabindex="-1" data-key="community">Community cloud</button><button type="button" role="tab" class="c5" id="depTabs-t4" aria-controls="depTabs-p4" aria-selected="false" tabindex="-1" data-key="multi">Multi-cloud</button></div><div role="tabpanel" class="tp c1" id="depTabs-p0" aria-labelledby="depTabs-t0" data-item><h3 class="phead">Public cloud</h3><div class="pair"><div><h4>Definition</h4><p>Infrastructure is owned by a third-party provider (Microsoft, AWS, Google) and shared securely among multiple unrelated customers over the internet.</p></div><div><h4>Real-world example</h4><p>A startup hosts its new mobile app backend on Azure App Service. It shares the physical servers with other companies but pays only for its own usage.</p></div></div></div><div role="tabpanel" class="tp c4" id="depTabs-p1" aria-labelledby="depTabs-t1" data-item hidden><h3 class="phead">Private cloud</h3><div class="pair"><div><h4>Definition</h4><p>Infrastructure is dedicated exclusively to a single organisation, offering maximum control, security and compliance.</p></div><div><h4>Real-world example</h4><p>A hospital builds its own private cloud on-premises to store patient medical records, keeping strict HIPAA compliance and total control over data residency.</p></div></div></div><div role="tabpanel" class="tp c2" id="depTabs-p2" aria-labelledby="depTabs-t2" data-item hidden><h3 class="phead">Hybrid cloud</h3><div class="pair"><div><h4>Definition</h4><p>A combination of an on-premises private cloud and a public cloud, allowing data and applications to move between them.</p></div><div><h4>Real-world example</h4><p>A retail bank keeps sensitive customer account databases in its own private datacentre, but uses the public Azure cloud to host its customer-facing website so it can scale in peak shopping seasons.</p></div></div></div><div role="tabpanel" class="tp c3" id="depTabs-p3" aria-labelledby="depTabs-t3" data-item hidden><h3 class="phead">Community cloud</h3><div class="pair"><div><h4>Definition</h4><p>Infrastructure is shared by several organisations that have common concerns, such as mission, security or compliance requirements.</p></div><div><h4>Real-world example</h4><p>Several government agencies in the same region share a community cloud to host citizen services, cutting costs while meeting shared, strict security regulations.</p></div></div></div><div role="tabpanel" class="tp c5" id="depTabs-p4" aria-labelledby="depTabs-t4" data-item hidden><h3 class="phead">Multi-cloud</h3><div class="pair"><div><h4>Definition</h4><p>Using services from two or more public cloud providers at the same time, to avoid vendor lock-in or to use best-of-breed services.</p></div><div><h4>Real-world example</h4><p>A global enterprise uses Azure for its Windows-based enterprise applications and AWS for its machine learning workloads, so no single provider failure takes down the whole business.</p></div></div></div></div>
     </section>
 
     <!-- ============ BENEFITS ============ -->
     <section id="benefits" data-sec>
       <h2>Core benefits of cloud computing</h2>
-      <p class="lede">Ten benefits the exam expects you to know, each with a case.</p>
-      <div class="tablewrap">
-        <table>
-          <caption>Benefits with a practical example</caption>
-          <thead><tr><th>Benefit</th><th>Definition</th><th>Real-world example</th></tr></thead>
-          <tbody>
-            <tr data-row><th scope="row">High availability</th>
-              <td data-l="Definition">Maximum availability of resources regardless of disruptions, backed by Service Level Agreements (SLAs) that guarantee uptime.</td>
-              <td data-l="Real-world example">A hospital's patient portal runs across several servers. If one fails, traffic is rerouted to another at once, so doctors can always reach records (a 99.99% SLA).</td></tr>
-            <tr data-row><th scope="row">Scalability: vertical</th>
-              <td data-l="Definition">"Scaling up or down." Increasing or decreasing the processing power (CPU, RAM) of an existing resource.</td>
-              <td data-l="Real-world example">An e-commerce company runs a database on a VM. Before Black Friday it scales the VM up from 8 GB to 64 GB of RAM to handle the heavy queries.</td></tr>
-            <tr data-row><th scope="row">Scalability: horizontal</th>
-              <td data-l="Definition">"Scaling out or in." Adding or removing resources, such as VMs or containers.</td>
-              <td data-l="Real-world example">A video streaming service gets a sudden spike in viewers. Autoscaling adds 10 more web servers (scale out), then removes them when the show ends (scale in).</td></tr>
-            <tr data-row><th scope="row">Reliability</th>
-              <td data-l="Definition">The ability of a system to recover from failures and keep working, supported by the cloud's decentralised global design.</td>
-              <td data-l="Real-world example">A company hosts its app in two Azure regions. If a hurricane cuts the power in Region A, traffic fails over to Region B with no human intervention.</td></tr>
-            <tr data-row><th scope="row">Performance predictability</th>
-              <td data-l="Definition">Predicting the resources needed to deliver a good customer experience, using tools such as autoscaling and load balancing.</td>
-              <td data-l="Real-world example">A tax software company knows traffic surges in April. Load balancers spread the traffic so no single server is overwhelmed during the deadline rush.</td></tr>
-            <tr data-row><th scope="row">Cost predictability</th>
-              <td data-l="Definition">Forecasting or tracking cloud spend in real time, to use resources efficiently and avoid bill shock.</td>
-              <td data-l="Real-world example">A startup uses the Azure Pricing Calculator to estimate monthly costs before deploying, and sets budget alerts that notify it if spending passes $500.</td></tr>
-            <tr data-row><th scope="row">Security and governance</th>
-              <td data-l="Definition">Using cloud tools, templates and automated patching to meet technical standards and regulations, including DDoS protection.</td>
-              <td data-l="Real-world example">A financial firm uses Azure Policy so no database can be deployed without encryption. The provider automatically blocks DDoS attacks on its public website.</td></tr>
-            <tr data-row><th scope="row">Manageability of the cloud</th>
-              <td data-l="Definition">Automating the management of resources: autoscaling to need, auto-replacing failing resources, deploying from templates.</td>
-              <td data-l="Real-world example">An IT admin sets a rule: "If CPU is over 80%, add a server. If CPU is under 20%, remove one." The cloud applies it with no manual work.</td></tr>
-            <tr data-row><th scope="row">Manageability in the cloud</th>
-              <td data-l="Definition">The ability to manage your environment through several interfaces: web portal, CLI, APIs and PowerShell.</td>
-              <td data-l="Real-world example">A DevOps team automates deployments with Azure CLI scripts, while the finance team uses the Azure web portal to read cost dashboards.</td></tr>
-            <tr data-row><th scope="row">Sustainability</th>
-              <td data-l="Definition">Optimising resource use to cut waste and carbon footprint, in line with green initiatives.</td>
-              <td data-l="Real-world example">A development team schedules all test VMs to deallocate (switch off) overnight and at weekends, saving both money and energy.</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p class="lede">Ten benefits the exam expects you to know. Tabs with the same colour belong together: availability and reliability, scale, predictability, security, manageability, and sustainability.</p>
+      <div class="tabs" id="benTabs" data-tabs><div class="tablist n10" role="tablist" aria-label="Cloud benefits"><button type="button" role="tab" class="c1" id="benTabs-t0" aria-controls="benTabs-p0" aria-selected="true" tabindex="0" data-key="ha">High availability</button><button type="button" role="tab" class="c2" id="benTabs-t1" aria-controls="benTabs-p1" aria-selected="false" tabindex="-1" data-key="vert">Scalability: vertical</button><button type="button" role="tab" class="c2" id="benTabs-t2" aria-controls="benTabs-p2" aria-selected="false" tabindex="-1" data-key="horiz">Scalability: horizontal</button><button type="button" role="tab" class="c1" id="benTabs-t3" aria-controls="benTabs-p3" aria-selected="false" tabindex="-1" data-key="rel">Reliability</button><button type="button" role="tab" class="c3" id="benTabs-t4" aria-controls="benTabs-p4" aria-selected="false" tabindex="-1" data-key="perf">Performance predictability</button><button type="button" role="tab" class="c3" id="benTabs-t5" aria-controls="benTabs-p5" aria-selected="false" tabindex="-1" data-key="cost">Cost predictability</button><button type="button" role="tab" class="c5" id="benTabs-t6" aria-controls="benTabs-p6" aria-selected="false" tabindex="-1" data-key="sec">Security and governance</button><button type="button" role="tab" class="c4" id="benTabs-t7" aria-controls="benTabs-p7" aria-selected="false" tabindex="-1" data-key="mgc">Manageability of the cloud</button><button type="button" role="tab" class="c4" id="benTabs-t8" aria-controls="benTabs-p8" aria-selected="false" tabindex="-1" data-key="mgi">Manageability in the cloud</button><button type="button" role="tab" class="c6" id="benTabs-t9" aria-controls="benTabs-p9" aria-selected="false" tabindex="-1" data-key="sus">Sustainability</button></div><div role="tabpanel" class="tp c1" id="benTabs-p0" aria-labelledby="benTabs-t0" data-item><h3 class="phead">High availability</h3><div class="pair"><div><h4>Definition</h4><p>Maximum availability of resources regardless of disruptions, backed by Service Level Agreements (SLAs) that guarantee uptime.</p></div><div><h4>Real-world example</h4><p>A hospital's patient portal runs across several servers. If one fails, traffic is rerouted to another at once, so doctors can always reach records (a 99.99% SLA).</p></div></div></div><div role="tabpanel" class="tp c2" id="benTabs-p1" aria-labelledby="benTabs-t1" data-item hidden><h3 class="phead">Scalability: vertical</h3><div class="pair"><div><h4>Definition</h4><p>"Scaling up or down." Increasing or decreasing the processing power (CPU, RAM) of an existing resource.</p></div><div><h4>Real-world example</h4><p>An e-commerce company runs a database on a VM. Before Black Friday it scales the VM up from 8 GB to 64 GB of RAM to handle the heavy queries.</p></div></div></div><div role="tabpanel" class="tp c2" id="benTabs-p2" aria-labelledby="benTabs-t2" data-item hidden><h3 class="phead">Scalability: horizontal</h3><div class="pair"><div><h4>Definition</h4><p>"Scaling out or in." Adding or removing resources, such as VMs or containers.</p></div><div><h4>Real-world example</h4><p>A video streaming service gets a sudden spike in viewers. Autoscaling adds 10 more web servers (scale out), then removes them when the show ends (scale in).</p></div></div></div><div role="tabpanel" class="tp c1" id="benTabs-p3" aria-labelledby="benTabs-t3" data-item hidden><h3 class="phead">Reliability</h3><div class="pair"><div><h4>Definition</h4><p>The ability of a system to recover from failures and keep working, supported by the cloud's decentralised global design.</p></div><div><h4>Real-world example</h4><p>A company hosts its app in two Azure regions. If a hurricane cuts the power in Region A, traffic fails over to Region B with no human intervention.</p></div></div></div><div role="tabpanel" class="tp c3" id="benTabs-p4" aria-labelledby="benTabs-t4" data-item hidden><h3 class="phead">Performance predictability</h3><div class="pair"><div><h4>Definition</h4><p>Predicting the resources needed to deliver a good customer experience, using tools such as autoscaling and load balancing.</p></div><div><h4>Real-world example</h4><p>A tax software company knows traffic surges in April. Load balancers spread the traffic so no single server is overwhelmed during the deadline rush.</p></div></div></div><div role="tabpanel" class="tp c3" id="benTabs-p5" aria-labelledby="benTabs-t5" data-item hidden><h3 class="phead">Cost predictability</h3><div class="pair"><div><h4>Definition</h4><p>Forecasting or tracking cloud spend in real time, to use resources efficiently and avoid bill shock.</p></div><div><h4>Real-world example</h4><p>A startup uses the Azure Pricing Calculator to estimate monthly costs before deploying, and sets budget alerts that notify it if spending passes $500.</p></div></div></div><div role="tabpanel" class="tp c5" id="benTabs-p6" aria-labelledby="benTabs-t6" data-item hidden><h3 class="phead">Security and governance</h3><div class="pair"><div><h4>Definition</h4><p>Using cloud tools, templates and automated patching to meet technical standards and regulations, including DDoS protection.</p></div><div><h4>Real-world example</h4><p>A financial firm uses Azure Policy so no database can be deployed without encryption. The provider automatically blocks DDoS attacks on its public website.</p></div></div></div><div role="tabpanel" class="tp c4" id="benTabs-p7" aria-labelledby="benTabs-t7" data-item hidden><h3 class="phead">Manageability of the cloud</h3><div class="pair"><div><h4>Definition</h4><p>Automating the management of resources: autoscaling to need, auto-replacing failing resources, deploying from templates.</p></div><div><h4>Real-world example</h4><p>An IT admin sets a rule: "If CPU is over 80%, add a server. If CPU is under 20%, remove one." The cloud applies it with no manual work.</p></div></div></div><div role="tabpanel" class="tp c4" id="benTabs-p8" aria-labelledby="benTabs-t8" data-item hidden><h3 class="phead">Manageability in the cloud</h3><div class="pair"><div><h4>Definition</h4><p>The ability to manage your environment through several interfaces: web portal, CLI, APIs and PowerShell.</p></div><div><h4>Real-world example</h4><p>A DevOps team automates deployments with Azure CLI scripts, while the finance team uses the Azure web portal to read cost dashboards.</p></div></div></div><div role="tabpanel" class="tp c6" id="benTabs-p9" aria-labelledby="benTabs-t9" data-item hidden><h3 class="phead">Sustainability</h3><div class="pair"><div><h4>Definition</h4><p>Optimising resource use to cut waste and carbon footprint, in line with green initiatives.</p></div><div><h4>Real-world example</h4><p>A development team schedules all test VMs to deallocate (switch off) overnight and at weekends, saving both money and energy.</p></div></div></div></div>
     </section>
 
     <!-- ============ AZURE OVERVIEW ============ -->
     <section id="azure" data-sec>
       <h2>Microsoft Azure overview</h2>
-      <p class="lede">Microsoft Azure is a cloud computing platform with a global footprint. It offers many services, tools and features to manage and govern cloud IT infrastructure. The services fall into six groups.</p>
-      <div class="tablewrap">
-        <table>
-          <caption>Azure at a glance</caption>
-          <thead><tr><th>Focus</th><th>Components and examples</th></tr></thead>
-          <tbody>
-            <tr class="group"><th colspan="2">Architectural components: the foundation</th></tr>
-            <tr data-row><th scope="row">Physical</th><td data-l="Components and examples">Regions, region pairs, availability zones, datacentres, sovereign regions</td></tr>
-            <tr data-row><th scope="row">Logical</th><td data-l="Components and examples">Resources, resource groups, subscriptions, management groups</td></tr>
-
-            <tr class="group"><th colspan="2">Cloud services and resources: what you deploy</th></tr>
-            <tr data-row><th scope="row">Compute</th><td data-l="Components and examples">Virtual Machines, VM Scale Sets (VMSS), App Service, Functions, ACI, AKS, Virtual Desktop</td></tr>
-            <tr data-row><th scope="row">Networking</th><td data-l="Components and examples">Virtual Network (VNet), subnets, VPN Gateway, ExpressRoute, Azure DNS, Load Balancer, Bastion</td></tr>
-            <tr data-row><th scope="row">Storage</th><td data-l="Components and examples">Blob Storage, Azure Files, Queue Storage, Table Storage, Disk Storage</td></tr>
-            <tr data-row><th scope="row">Databases</th><td data-l="Components and examples">Azure SQL Database, Cosmos DB, Azure Database for MySQL and PostgreSQL</td></tr>
-            <tr data-row><th scope="row">AI and machine learning</th><td data-l="Components and examples">Azure OpenAI, Azure AI Services (Cognitive Services), Azure Machine Learning</td></tr>
-            <tr data-row><th scope="row">IoT and edge</th><td data-l="Components and examples">Azure IoT Hub, Azure IoT Central, Azure IoT Edge</td></tr>
-            <tr data-row><th scope="row">Integration</th><td data-l="Components and examples">Logic Apps, Service Bus, Event Grid</td></tr>
-
-            <tr class="group"><th colspan="2">Management tools: how you interact</th></tr>
-            <tr data-row><th scope="row">Interfaces</th><td data-l="Components and examples">Azure Portal (GUI), Azure Cloud Shell</td></tr>
-            <tr data-row><th scope="row">Command line</th><td data-l="Components and examples">Azure CLI (Bash), Azure PowerShell</td></tr>
-            <tr data-row><th scope="row">IaC and DevOps</th><td data-l="Components and examples">ARM templates, Bicep, Terraform, Azure DevOps, GitHub Actions</td></tr>
-            <tr data-row><th scope="row">Migration and data</th><td data-l="Components and examples">Azure Migrate, Data Box, AzCopy, Storage Explorer, Azure Arc</td></tr>
-
-            <tr class="group"><th colspan="2">Native features: how you configure</th></tr>
-            <tr data-row><th scope="row">Availability and scale</th><td data-l="Components and examples">Availability sets, autoscale rules, fault and update domains</td></tr>
-            <tr data-row><th scope="row">Storage options</th><td data-l="Components and examples">Blob tiers (Hot, Cool, Archive), redundancy (LRS, ZRS, GRS), lifecycle management</td></tr>
-            <tr data-row><th scope="row">Networking options</th><td data-l="Components and examples">VNet peering, user-defined routes (UDRs), service endpoints</td></tr>
-            <tr data-row><th scope="row">App hosting</th><td data-l="Components and examples">App Service deployment slots, CI/CD integrations</td></tr>
-
-            <tr class="group"><th colspan="2">Security and governance: how you control</th></tr>
-            <tr data-row><th scope="row">Identity and access</th><td data-l="Components and examples">Microsoft Entra ID, MFA, Conditional Access, role-based access control (RBAC)</td></tr>
-            <tr data-row><th scope="row">Security</th><td data-l="Components and examples">Defender for Cloud, Key Vault, SAS tokens, NSGs, Azure Firewall, DDoS Protection</td></tr>
-            <tr data-row><th scope="row">Governance</th><td data-l="Components and examples">Azure Policy, resource locks, tags, Microsoft Purview</td></tr>
-
-            <tr class="group"><th colspan="2">Monitoring and operations: how you maintain</th></tr>
-            <tr data-row><th scope="row">Health and logs</th><td data-l="Components and examples">Azure Monitor, Log Analytics, Application Insights, Service Health</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p class="lede">Microsoft Azure is a cloud computing platform with a global footprint. It offers many services, tools and features to manage and govern cloud IT infrastructure. The services fall into six groups. Pick one to see its components.</p>
+      <div class="tabs" id="ovTabs" data-tabs><div class="tablist n6" role="tablist" aria-label="Azure overview groups"><button type="button" role="tab" class="c1" id="ovTabs-t0" aria-controls="ovTabs-p0" aria-selected="true" tabindex="0" data-key="arch">Architectural</button><button type="button" role="tab" class="c2" id="ovTabs-t1" aria-controls="ovTabs-p1" aria-selected="false" tabindex="-1" data-key="svc">Cloud services</button><button type="button" role="tab" class="c3" id="ovTabs-t2" aria-controls="ovTabs-p2" aria-selected="false" tabindex="-1" data-key="mgmt">Management tools</button><button type="button" role="tab" class="c4" id="ovTabs-t3" aria-controls="ovTabs-p3" aria-selected="false" tabindex="-1" data-key="native">Native features</button><button type="button" role="tab" class="c5" id="ovTabs-t4" aria-controls="ovTabs-p4" aria-selected="false" tabindex="-1" data-key="secgov">Security and governance</button><button type="button" role="tab" class="c6" id="ovTabs-t5" aria-controls="ovTabs-p5" aria-selected="false" tabindex="-1" data-key="mon">Monitoring and operations</button></div><div role="tabpanel" class="tp c1" id="ovTabs-p0" aria-labelledby="ovTabs-t0"><h3 class="phead">Architectural components: the foundation</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Physical</th><td data-l="Components and examples"><span class="chips"><span class="chip">Regions</span><span class="chip">Region pairs</span><span class="chip">Availability zones</span><span class="chip">Datacentres</span><span class="chip">Sovereign regions</span></span></td></tr><tr data-row><th scope="row">Logical</th><td data-l="Components and examples"><span class="chips"><span class="chip">Resources</span><span class="chip">Resource groups</span><span class="chip">Subscriptions</span><span class="chip">Management groups</span></span></td></tr></tbody></table></div></div><div role="tabpanel" class="tp c2" id="ovTabs-p1" aria-labelledby="ovTabs-t1" hidden><h3 class="phead">Cloud services and resources: what you deploy</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Compute</th><td data-l="Components and examples"><span class="chips"><span class="chip">Virtual Machines</span><span class="chip">VM Scale Sets (VMSS)</span><span class="chip">App Service</span><span class="chip">Functions</span><span class="chip">ACI</span><span class="chip">AKS</span><span class="chip">Virtual Desktop</span></span></td></tr><tr data-row><th scope="row">Networking</th><td data-l="Components and examples"><span class="chips"><span class="chip">Virtual Network (VNet)</span><span class="chip">Subnets</span><span class="chip">VPN Gateway</span><span class="chip">ExpressRoute</span><span class="chip">Azure DNS</span><span class="chip">Load Balancer</span><span class="chip">Bastion</span></span></td></tr><tr data-row><th scope="row">Storage</th><td data-l="Components and examples"><span class="chips"><span class="chip">Blob Storage</span><span class="chip">Azure Files</span><span class="chip">Queue Storage</span><span class="chip">Table Storage</span><span class="chip">Disk Storage</span></span></td></tr><tr data-row><th scope="row">Databases</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure SQL Database</span><span class="chip">Cosmos DB</span><span class="chip">Azure Database for MySQL</span><span class="chip">Azure Database for PostgreSQL</span></span></td></tr><tr data-row><th scope="row">AI and machine learning</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure OpenAI</span><span class="chip">Azure AI Services (Cognitive Services)</span><span class="chip">Azure Machine Learning</span></span></td></tr><tr data-row><th scope="row">IoT and edge</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure IoT Hub</span><span class="chip">Azure IoT Central</span><span class="chip">Azure IoT Edge</span></span></td></tr><tr data-row><th scope="row">Integration</th><td data-l="Components and examples"><span class="chips"><span class="chip">Logic Apps</span><span class="chip">Service Bus</span><span class="chip">Event Grid</span></span></td></tr></tbody></table></div></div><div role="tabpanel" class="tp c3" id="ovTabs-p2" aria-labelledby="ovTabs-t2" hidden><h3 class="phead">Management tools: how you interact</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Interfaces</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure Portal (GUI)</span><span class="chip">Azure Cloud Shell</span></span></td></tr><tr data-row><th scope="row">Command line</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure CLI (Bash)</span><span class="chip">Azure PowerShell</span></span></td></tr><tr data-row><th scope="row">IaC and DevOps</th><td data-l="Components and examples"><span class="chips"><span class="chip">ARM templates</span><span class="chip">Bicep</span><span class="chip">Terraform</span><span class="chip">Azure DevOps</span><span class="chip">GitHub Actions</span></span></td></tr><tr data-row><th scope="row">Migration and data</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure Migrate</span><span class="chip">Data Box</span><span class="chip">AzCopy</span><span class="chip">Storage Explorer</span><span class="chip">Azure Arc</span></span></td></tr></tbody></table></div></div><div role="tabpanel" class="tp c4" id="ovTabs-p3" aria-labelledby="ovTabs-t3" hidden><h3 class="phead">Native features: how you configure</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Availability and scale</th><td data-l="Components and examples"><span class="chips"><span class="chip">Availability sets</span><span class="chip">Autoscale rules</span><span class="chip">Fault domains</span><span class="chip">Update domains</span></span></td></tr><tr data-row><th scope="row">Storage options</th><td data-l="Components and examples"><span class="chips"><span class="chip">Blob tiers (Hot, Cool, Archive)</span><span class="chip">Redundancy (LRS, ZRS, GRS)</span><span class="chip">Lifecycle management</span></span></td></tr><tr data-row><th scope="row">Networking options</th><td data-l="Components and examples"><span class="chips"><span class="chip">VNet peering</span><span class="chip">User-defined routes (UDRs)</span><span class="chip">Service endpoints</span></span></td></tr><tr data-row><th scope="row">App hosting</th><td data-l="Components and examples"><span class="chips"><span class="chip">App Service deployment slots</span><span class="chip">CI/CD integrations</span></span></td></tr></tbody></table></div></div><div role="tabpanel" class="tp c5" id="ovTabs-p4" aria-labelledby="ovTabs-t4" hidden><h3 class="phead">Security and governance: how you control</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Identity and access</th><td data-l="Components and examples"><span class="chips"><span class="chip">Microsoft Entra ID</span><span class="chip">MFA</span><span class="chip">Conditional Access</span><span class="chip">Role-based access control (RBAC)</span></span></td></tr><tr data-row><th scope="row">Security</th><td data-l="Components and examples"><span class="chips"><span class="chip">Defender for Cloud</span><span class="chip">Key Vault</span><span class="chip">SAS tokens</span><span class="chip">NSGs</span><span class="chip">Azure Firewall</span><span class="chip">DDoS Protection</span></span></td></tr><tr data-row><th scope="row">Governance</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure Policy</span><span class="chip">Resource locks</span><span class="chip">Tags</span><span class="chip">Microsoft Purview</span></span></td></tr></tbody></table></div></div><div role="tabpanel" class="tp c6" id="ovTabs-p5" aria-labelledby="ovTabs-t5" hidden><h3 class="phead">Monitoring and operations: how you maintain</h3><div class="tablewrap"><table><thead><tr><th>Focus</th><th>Components and examples</th></tr></thead><tbody><tr data-row><th scope="row">Health and logs</th><td data-l="Components and examples"><span class="chips"><span class="chip">Azure Monitor</span><span class="chip">Log Analytics</span><span class="chip">Application Insights</span><span class="chip">Service Health</span></span></td></tr></tbody></table></div></div></div>
     </section>
 
     <!-- ============ REFERENCE ============ -->
     <section id="reference" data-sec>
       <h2>Azure services and tools reference</h2>
-      <p class="lede">What each service manages, and what it does in one line.</p>
-      <div class="tablewrap">
-        <table>
-          <caption>Services and tools by category</caption>
-          <thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr class="group"><th colspan="3">Compute</th></tr>
-            <tr data-row><th scope="row">Azure Virtual Machines</th><td data-l="Manages">Virtualised servers</td><td data-l="Description">Rent full virtual computers. You manage the OS and applications (IaaS).</td></tr>
-            <tr data-row><th scope="row">Azure App Service</th><td data-l="Manages">Web apps and APIs</td><td data-l="Description">Fully managed PaaS to host web applications without managing servers.</td></tr>
-            <tr data-row><th scope="row">Azure Functions</th><td data-l="Manages">Event-driven code</td><td data-l="Description">Serverless compute that runs code on triggers and scales automatically.</td></tr>
-            <tr data-row><th scope="row">Azure Container Instances (ACI)</th><td data-l="Manages">Single containers</td><td data-l="Description">Run containers quickly without managing VMs or orchestration.</td></tr>
-            <tr data-row><th scope="row">Azure Kubernetes Service (AKS)</th><td data-l="Manages">Container orchestration</td><td data-l="Description">Managed Kubernetes for deploying and scaling containerised applications.</td></tr>
-            <tr data-row><th scope="row">Azure Virtual Desktop</th><td data-l="Manages">Remote Windows desktops</td><td data-l="Description">Deliver virtualised Windows desktops and apps to any device.</td></tr>
+      <p class="lede">What each service manages, and what it does in one line. Pick a category.</p>
+      <div class="tabs" id="refTabs" data-tabs><div class="tablist n8" role="tablist" aria-label="Services and tools by category"><button type="button" role="tab" class="c1" id="refTabs-t0" aria-controls="refTabs-p0" aria-selected="true" tabindex="0" data-key="compute">Compute</button><button type="button" role="tab" class="c2" id="refTabs-t1" aria-controls="refTabs-p1" aria-selected="false" tabindex="-1" data-key="network">Networking</button><button type="button" role="tab" class="c3" id="refTabs-t2" aria-controls="refTabs-p2" aria-selected="false" tabindex="-1" data-key="storage">Storage</button><button type="button" role="tab" class="c4" id="refTabs-t3" aria-controls="refTabs-p3" aria-selected="false" tabindex="-1" data-key="db">Databases</button><button type="button" role="tab" class="c5" id="refTabs-t4" aria-controls="refTabs-p4" aria-selected="false" tabindex="-1" data-key="ai">AI and machine learning</button><button type="button" role="tab" class="c6" id="refTabs-t5" aria-controls="refTabs-p5" aria-selected="false" tabindex="-1" data-key="iot">IoT</button><button type="button" role="tab" class="c7" id="refTabs-t6" aria-controls="refTabs-p6" aria-selected="false" tabindex="-1" data-key="integ">Integration</button><button type="button" role="tab" class="c8" id="refTabs-t7" aria-controls="refTabs-p7" aria-selected="false" tabindex="-1" data-key="idsec">Identity and security</button></div><div role="tabpanel" class="tp c1" id="refTabs-p0" aria-labelledby="refTabs-t0"><h3 class="phead">Compute</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure Virtual Machines</th><td data-l="Manages">Virtualised servers</td><td data-l="Description">Rent full virtual computers. You manage the OS and applications (IaaS).</td></tr><tr data-row><th scope="row">Azure App Service</th><td data-l="Manages">Web apps and APIs</td><td data-l="Description">Fully managed PaaS to host web applications without managing servers.</td></tr><tr data-row><th scope="row">Azure Functions</th><td data-l="Manages">Event-driven code</td><td data-l="Description">Serverless compute that runs code on triggers and scales automatically.</td></tr><tr data-row><th scope="row">Azure Container Instances (ACI)</th><td data-l="Manages">Single containers</td><td data-l="Description">Run containers quickly without managing VMs or orchestration.</td></tr><tr data-row><th scope="row">Azure Kubernetes Service (AKS)</th><td data-l="Manages">Container orchestration</td><td data-l="Description">Managed Kubernetes for deploying and scaling containerised applications.</td></tr><tr data-row><th scope="row">Azure Virtual Desktop</th><td data-l="Manages">Remote Windows desktops</td><td data-l="Description">Deliver virtualised Windows desktops and apps to any device.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c2" id="refTabs-p1" aria-labelledby="refTabs-t1" hidden><h3 class="phead">Networking</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure Virtual Network (VNet)</th><td data-l="Manages">Private network isolation</td><td data-l="Description">The fundamental building block for private networking in Azure.</td></tr><tr data-row><th scope="row">Network Security Groups (NSG)</th><td data-l="Manages">Traffic filtering (firewall)</td><td data-l="Description">Stateful firewall rules that allow or deny network traffic.</td></tr><tr data-row><th scope="row">Azure Load Balancer</th><td data-l="Manages">Layer 4 traffic distribution</td><td data-l="Description">Distributes TCP and UDP traffic across multiple resources for high availability.</td></tr><tr data-row><th scope="row">Azure Application Gateway</th><td data-l="Manages">Layer 7 traffic distribution</td><td data-l="Description">Web traffic load balancer with SSL termination and WAF capabilities.</td></tr><tr data-row><th scope="row">Azure DNS</th><td data-l="Manages">Domain name resolution</td><td data-l="Description">Hosts DNS zones and manages name resolution for your domains.</td></tr><tr data-row><th scope="row">VPN Gateway and ExpressRoute</th><td data-l="Manages">Hybrid connectivity</td><td data-l="Description">Connect on-premises networks to Azure: encrypted over the internet (VPN) or over a private line (ExpressRoute).</td></tr><tr data-row><th scope="row">Azure Bastion</th><td data-l="Manages">Secure remote access</td><td data-l="Description">Secure RDP and SSH access to VMs without public IPs.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c3" id="refTabs-p2" aria-labelledby="refTabs-t2" hidden><h3 class="phead">Storage</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure Blob Storage</th><td data-l="Manages">Unstructured data (objects)</td><td data-l="Description">Massively scalable object storage for images, videos and backups.</td></tr><tr data-row><th scope="row">Azure Files</th><td data-l="Manages">Managed file shares</td><td data-l="Description">Fully managed SMB and NFS file shares, reachable from the cloud or on-premises.</td></tr><tr data-row><th scope="row">Storage Explorer and AzCopy</th><td data-l="Manages">Data movement</td><td data-l="Description">A GUI tool and a command-line tool for moving and managing data in Azure Storage.</td></tr><tr data-row><th scope="row">Azure Migrate and Data Box</th><td data-l="Manages">Migration tools</td><td data-l="Description">Services to assess and move on-premises workloads, or very large amounts of data, to Azure.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c4" id="refTabs-p3" aria-labelledby="refTabs-t3" hidden><h3 class="phead">Databases</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure SQL Database</th><td data-l="Manages">Relational database (PaaS)</td><td data-l="Description">A fully managed SQL Server engine in the cloud with built-in high availability.</td></tr><tr data-row><th scope="row">Azure Cosmos DB</th><td data-l="Manages">NoSQL database</td><td data-l="Description">Globally distributed, multi-model database for fast, low-latency apps.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c5" id="refTabs-p4" aria-labelledby="refTabs-t4" hidden><h3 class="phead">AI and machine learning</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure OpenAI</th><td data-l="Manages">Generative AI models</td><td data-l="Description">Access to advanced AI models (such as GPT) for building generative AI apps.</td></tr><tr data-row><th scope="row">Azure AI Services</th><td data-l="Manages">Prebuilt AI APIs</td><td data-l="Description">Ready-to-use AI for vision, speech and language, with no data science needed.</td></tr><tr data-row><th scope="row">Azure Machine Learning</th><td data-l="Manages">Custom AI model training</td><td data-l="Description">A cloud platform for data scientists to build, train and deploy ML models.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c6" id="refTabs-p5" aria-labelledby="refTabs-t5" hidden><h3 class="phead">IoT</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure IoT Hub</th><td data-l="Manages">Device-to-cloud communication</td><td data-l="Description">A central message hub for secure, two-way communication with IoT devices.</td></tr><tr data-row><th scope="row">Azure IoT Central</th><td data-l="Manages">Managed IoT app platform</td><td data-l="Description">A fully managed SaaS platform that simplifies building IoT solutions.</td></tr><tr data-row><th scope="row">Azure IoT Edge</th><td data-l="Manages">Edge computing</td><td data-l="Description">Runs cloud workloads (such as AI) directly on local IoT devices instead of in the cloud.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c7" id="refTabs-p6" aria-labelledby="refTabs-t6" hidden><h3 class="phead">Integration</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Azure Logic Apps</th><td data-l="Manages">Workflow automation</td><td data-l="Description">Automates workflows and connects apps, data and services without code.</td></tr><tr data-row><th scope="row">Azure Service Bus</th><td data-l="Manages">Enterprise messaging</td><td data-l="Description">A reliable message broker that decouples enterprise applications.</td></tr><tr data-row><th scope="row">Azure Event Grid</th><td data-l="Manages">Event routing</td><td data-l="Description">Routes events from Azure and non-Azure sources to subscribers.</td></tr></tbody></table></div></div><div role="tabpanel" class="tp c8" id="refTabs-p7" aria-labelledby="refTabs-t7" hidden><h3 class="phead">Identity and security</h3><div class="tablewrap"><table><thead><tr><th>Service or tool</th><th>Manages</th><th>Description</th></tr></thead><tbody><tr data-row><th scope="row">Microsoft Entra ID</th><td data-l="Manages">Cloud identity and access</td><td data-l="Description">Cloud-based identity provider for users, groups and authentication.</td></tr><tr data-row><th scope="row">Azure RBAC</th><td data-l="Manages">Resource authorisation</td><td data-l="Description">Role-based access control that decides who can do what on Azure resources.</td></tr><tr data-row><th scope="row">Azure Policy</th><td data-l="Manages">Governance and compliance</td><td data-l="Description">Enforces organisational rules and checks compliance at scale.</td></tr></tbody></table></div></div></div>
+    </section>
 
-            <tr class="group"><th colspan="3">Networking</th></tr>
-            <tr data-row><th scope="row">Azure Virtual Network (VNet)</th><td data-l="Manages">Private network isolation</td><td data-l="Description">The fundamental building block for private networking in Azure.</td></tr>
-            <tr data-row><th scope="row">Network Security Groups (NSG)</th><td data-l="Manages">Traffic filtering (firewall)</td><td data-l="Description">Stateful firewall rules that allow or deny network traffic.</td></tr>
-            <tr data-row><th scope="row">Azure Load Balancer</th><td data-l="Manages">Layer 4 traffic distribution</td><td data-l="Description">Distributes TCP and UDP traffic across multiple resources for high availability.</td></tr>
-            <tr data-row><th scope="row">Azure Application Gateway</th><td data-l="Manages">Layer 7 traffic distribution</td><td data-l="Description">Web traffic load balancer with SSL termination and WAF capabilities.</td></tr>
-            <tr data-row><th scope="row">Azure DNS</th><td data-l="Manages">Domain name resolution</td><td data-l="Description">Hosts DNS zones and manages name resolution for your domains.</td></tr>
-            <tr data-row><th scope="row">VPN Gateway and ExpressRoute</th><td data-l="Manages">Hybrid connectivity</td><td data-l="Description">Connect on-premises networks to Azure: encrypted over the internet (VPN) or over a private line (ExpressRoute).</td></tr>
-            <tr data-row><th scope="row">Azure Bastion</th><td data-l="Manages">Secure remote access</td><td data-l="Description">Secure RDP and SSH access to VMs without public IPs.</td></tr>
-
-            <tr class="group"><th colspan="3">Storage</th></tr>
-            <tr data-row><th scope="row">Azure Blob Storage</th><td data-l="Manages">Unstructured data (objects)</td><td data-l="Description">Massively scalable object storage for images, videos and backups.</td></tr>
-            <tr data-row><th scope="row">Azure Files</th><td data-l="Manages">Managed file shares</td><td data-l="Description">Fully managed SMB and NFS file shares, reachable from the cloud or on-premises.</td></tr>
-            <tr data-row><th scope="row">Storage Explorer and AzCopy</th><td data-l="Manages">Data movement</td><td data-l="Description">A GUI tool and a command-line tool for moving and managing data in Azure Storage.</td></tr>
-            <tr data-row><th scope="row">Azure Migrate and Data Box</th><td data-l="Manages">Migration tools</td><td data-l="Description">Services to assess and move on-premises workloads, or very large amounts of data, to Azure.</td></tr>
-
-            <tr class="group"><th colspan="3">Databases</th></tr>
-            <tr data-row><th scope="row">Azure SQL Database</th><td data-l="Manages">Relational database (PaaS)</td><td data-l="Description">A fully managed SQL Server engine in the cloud with built-in high availability.</td></tr>
-            <tr data-row><th scope="row">Azure Cosmos DB</th><td data-l="Manages">NoSQL database</td><td data-l="Description">Globally distributed, multi-model database for fast, low-latency apps.</td></tr>
-
-            <tr class="group"><th colspan="3">AI and machine learning</th></tr>
-            <tr data-row><th scope="row">Azure OpenAI</th><td data-l="Manages">Generative AI models</td><td data-l="Description">Access to advanced AI models (such as GPT) for building generative AI apps.</td></tr>
-            <tr data-row><th scope="row">Azure AI Services</th><td data-l="Manages">Prebuilt AI APIs</td><td data-l="Description">Ready-to-use AI for vision, speech and language, with no data science needed.</td></tr>
-            <tr data-row><th scope="row">Azure Machine Learning</th><td data-l="Manages">Custom AI model training</td><td data-l="Description">A cloud platform for data scientists to build, train and deploy ML models.</td></tr>
-
-            <tr class="group"><th colspan="3">IoT</th></tr>
-            <tr data-row><th scope="row">Azure IoT Hub</th><td data-l="Manages">Device-to-cloud communication</td><td data-l="Description">A central message hub for secure, two-way communication with IoT devices.</td></tr>
-            <tr data-row><th scope="row">Azure IoT Central</th><td data-l="Manages">Managed IoT app platform</td><td data-l="Description">A fully managed SaaS platform that simplifies building IoT solutions.</td></tr>
-            <tr data-row><th scope="row">Azure IoT Edge</th><td data-l="Manages">Edge computing</td><td data-l="Description">Runs cloud workloads (such as AI) directly on local IoT devices instead of in the cloud.</td></tr>
-
-            <tr class="group"><th colspan="3">Integration</th></tr>
-            <tr data-row><th scope="row">Azure Logic Apps</th><td data-l="Manages">Workflow automation</td><td data-l="Description">Automates workflows and connects apps, data and services without code.</td></tr>
-            <tr data-row><th scope="row">Azure Service Bus</th><td data-l="Manages">Enterprise messaging</td><td data-l="Description">A reliable message broker that decouples enterprise applications.</td></tr>
-            <tr data-row><th scope="row">Azure Event Grid</th><td data-l="Manages">Event routing</td><td data-l="Description">Routes events from Azure and non-Azure sources to subscribers.</td></tr>
-
-            <tr class="group"><th colspan="3">Identity and security</th></tr>
-            <tr data-row><th scope="row">Microsoft Entra ID</th><td data-l="Manages">Cloud identity and access</td><td data-l="Description">Cloud-based identity provider for users, groups and authentication.</td></tr>
-            <tr data-row><th scope="row">Azure RBAC</th><td data-l="Manages">Resource authorisation</td><td data-l="Description">Role-based access control that decides who can do what on Azure resources.</td></tr>
-            <tr data-row><th scope="row">Azure Policy</th><td data-l="Manages">Governance and compliance</td><td data-l="Description">Enforces organisational rules and checks compliance at scale.</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- ============ PRACTICE EXAM ============ -->
+    <section id="exam" data-sec>
+      <h2>Practice exam</h2>
+      <p class="lede">Fifty original multiple-choice questions, weighted like the real AZ-900 skill areas. Take it as a timed exam, or check each answer as you go. Every question comes with an explanation.</p>
+      <div class="note"><strong>Is this page enough to pass?</strong> It is a good map, but not the whole exam. The notes above name many services without explaining them. The ones the exam asks about most often are identity and security (MFA, passwordless sign-in, Conditional Access, external identities, defence in depth, RBAC), governance and cost tools (tags, locks, Policy, Purview, Service Trust Portal, pricing and TCO calculators, Cost Management), monitoring tools (Advisor, Service Health, Monitor), and storage redundancy and tiers. Questions on those topics carry a <em>New topic</em> label, and their explanations are the lesson. Before you book the exam, also work through the free AZ-900 path on Microsoft Learn and score well on practice questions from other sources too.</div>
+      <div id="examApp" aria-live="polite"></div>
+      <details class="key" id="teacherKey">
+        <summary>Answer key for all 50 questions (for the teacher)</summary>
+        <div id="keyBody" class="tablewrap"></div>
+      </details>
+      <p class="fine">These are original practice questions written for these notes. They are not real exam questions, and the real exam uses other wording and extra formats such as drag and drop. The pass mark on the real exam is 700 on a scale of 1 to 1000. That scale is not a simple percentage, so treat your score here as a guide only.</p>
     </section>
 
     <footer>Study notes for the Microsoft AZ-900 exam. Service names and features change, so check Microsoft Learn for the current exam skills.</footer>
@@ -423,6 +397,38 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
     try{localStorage.setItem('az900-theme',next);}catch(e){}
   });
 
+  /* tab sets */
+  var searching=false;
+  var tabsets=[].slice.call(document.querySelectorAll('[data-tabs]'));
+  function applyPanels(ts){
+    ts._panels.forEach(function(p,k){ p.hidden = searching ? !!p._nomatch : (k!==ts._active); });
+  }
+  tabsets.forEach(function(ts){
+    var tabs=[].slice.call(ts.querySelectorAll('[role="tab"]'));
+    ts._tabs=tabs;
+    ts._panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'));});
+    ts._active=0;
+    ts._select=function(i,focus,silent){
+      ts._active=i;
+      tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i?'true':'false'); t.tabIndex=(k===i)?0:-1;});
+      applyPanels(ts);
+      if(focus) tabs[i].focus();
+      if(!silent) ts.dispatchEvent(new CustomEvent('tabchange',{detail:{key:tabs[i].getAttribute('data-key'),index:i}}));
+    };
+    tabs.forEach(function(t,k){
+      t.addEventListener('click',function(){ts._select(k);});
+      t.addEventListener('keydown',function(e){
+        var n=tabs.length,j=null;
+        if(e.key==='ArrowRight'||e.key==='ArrowDown') j=(k+1)%n;
+        else if(e.key==='ArrowLeft'||e.key==='ArrowUp') j=(k-1+n)%n;
+        else if(e.key==='Home') j=0;
+        else if(e.key==='End') j=n-1;
+        if(j!==null){e.preventDefault();ts._select(j,true);}
+      });
+    });
+    ts._select(0,false,true);
+  });
+
   /* who manages what */
   var layers=['Applications','Data','Runtime','Operating system','Virtualisation','Servers','Storage','Networking'];
   var manage={ onprem:8, iaas:4, paas:2, saas:0 };   /* how many top layers you manage */
@@ -439,8 +445,7 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
     list.appendChild(li);
   });
   function show(m){
-    var bars=list.querySelectorAll('.bar');
-    bars.forEach(function(b,i){
+    list.querySelectorAll('.bar').forEach(function(b,i){
       var you=i<manage[m];
       b.className='bar '+(you?'you':'prov');
       b.textContent=you?'You manage':'Provider manages';
@@ -450,16 +455,25 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
       x.setAttribute('aria-pressed',x.getAttribute('data-m')===m?'true':'false');
     });
   }
+  var svc=document.getElementById('svcTabs');
   document.querySelectorAll('#resp .seg button').forEach(function(x){
-    x.addEventListener('click',function(){show(x.getAttribute('data-m'));});
+    x.addEventListener('click',function(){
+      var m=x.getAttribute('data-m'); show(m);
+      if(m!=='onprem' && svc){
+        for(var i=0;i<svc._tabs.length;i++){ if(svc._tabs[i].getAttribute('data-key')===m){ svc._select(i,false,true); break; } }
+      }
+    });
   });
-  show('iaas');
+  if(svc) svc.addEventListener('tabchange',function(e){show(e.detail.key);});
+  show('iaas'); if(svc) svc._select(0,false,true);
 
   /* search */
   var q=document.getElementById('q'), status=document.getElementById('status'), empty=document.getElementById('empty');
-  var rows=[].slice.call(document.querySelectorAll('tr[data-row]'));
+  var rowEls=[].slice.call(document.querySelectorAll('tr[data-row]'));
+  var panelItems=[].slice.call(document.querySelectorAll('[role="tabpanel"][data-item]'));
+  var allPanels=[].slice.call(document.querySelectorAll('[role="tabpanel"]'));
   var sections=[].slice.call(document.querySelectorAll('[data-sec]'));
-  rows.forEach(function(r){r._t=r.textContent.toLowerCase();});
+  rowEls.concat(panelItems).forEach(function(e){e._t=e.textContent.toLowerCase().replace(/\s+/g,' ');});
   function clearMarks(){
     document.querySelectorAll('mark').forEach(function(m){var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});
   }
@@ -477,25 +491,31 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
   function run(){
     var term=q.value.trim().toLowerCase(), shown=0;
     clearMarks();
-    rows.forEach(function(r){
+    rowEls.forEach(function(r){
       var ok=!term||r._t.indexOf(term)>-1;
       r.hidden=!ok; if(ok){shown++; if(term) markIn(r,term);}
     });
-    /* hide group headings with no visible rows */
-    document.querySelectorAll('tr.group').forEach(function(g){
-      var n=g.nextElementSibling, any=false;
-      while(n && !n.classList.contains('group')){ if(!n.hidden){any=true;break;} n=n.nextElementSibling; }
-      g.hidden=!any;
+    panelItems.forEach(function(p){
+      var ok=!term||p._t.indexOf(term)>-1;
+      p._nomatch=!ok; if(ok){shown++; if(term) markIn(p,term);}
     });
+    allPanels.forEach(function(p){
+      if(p.hasAttribute('data-item')) return;
+      var rs=p.querySelectorAll('tr[data-row]');
+      p._nomatch=!( !term || [].some.call(rs,function(r){return !r.hidden;}) );
+    });
+    searching=!!term;
+    document.body.classList.toggle('searching',searching);
+    tabsets.forEach(applyPanels);
     sections.forEach(function(s){
-      var rs=s.querySelectorAll('tr[data-row]');
-      var visible=!rs.length || [].some.call(rs,function(r){return !r.hidden;});
-      s.hidden=term && !visible && rs.length>0;
-      var resp=s.querySelector('.resp'); if(resp) resp.hidden=!!term;
+      if(s.id==='exam'||s.id==='cloud'){ s.hidden=searching; return; }
+      var any=[].some.call(s.querySelectorAll('[role="tabpanel"]'),function(p){return !p._nomatch;});
+      s.hidden=searching && !any;
+      var resp=s.querySelector('.resp'); if(resp) resp.hidden=searching;
     });
     if(!term){ status.textContent=''; empty.style.display='none'; }
     else{
-      status.textContent=shown+(shown===1?' row matches':' rows match')+' "'+q.value.trim()+'".';
+      status.textContent=shown+(shown===1?' match':' matches')+' for "'+q.value.trim()+'".';
       empty.style.display=shown?'none':'block';
     }
   }
@@ -525,6 +545,357 @@ footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:v
     sections.forEach(function(s){io.observe(s);});
   }
 })();
+</script>
+<script>
+const QUESTIONS = [
+/* ---------- Domain 1: cloud concepts (13) ---------- */
+{d:1,t:'s',q:"A company moves its database to Azure SQL Database. Microsoft now patches the operating system and the database engine. Which cloud service type is this?",
+ o:["IaaS","PaaS","SaaS","Hybrid cloud"],a:1,
+ e:"In PaaS the provider runs the operating system and runtime, and you manage only your application and data. Hybrid cloud is a deployment model, not a service type.",s:"#service-types"},
+{d:1,t:'s',q:"Which statement describes the consumption-based pricing model?",
+ o:["You pay a fixed yearly fee whatever you use","You pay only for the resources you use","You buy the hardware and Azure runs it for you","You pay only when a resource is deleted"],a:1,
+ e:"With consumption-based pricing you pay for what you use. There is no upfront hardware purchase and no fixed commitment unless you choose one.",s:"#cloud"},
+{d:1,t:'s',q:"A company stops buying servers worth $2 million and pays a monthly Azure bill instead. Which shift is this?",
+ o:["From OpEx to CapEx","From CapEx to OpEx","From private cloud to community cloud","From PaaS to IaaS"],a:1,
+ e:"CapEx is upfront spending on assets you own. OpEx is spending as you consume a service. Moving to the cloud shifts most spending from CapEx to OpEx.",s:"#cloud"},
+{d:1,t:'yn',q:"For each statement, choose Yes or No.",
+ o:["In IaaS, the customer is responsible for patching the guest operating system.","In SaaS, the customer is responsible for managing the physical datacentre.","In every cloud service type, the customer remains responsible for their own data and user accounts."],a:[true,false,true],
+ e:"In IaaS you manage the operating system. In SaaS the provider manages the infrastructure. Data and identities stay the customer's responsibility in every model.",s:"#service-types"},
+{d:1,t:'s',q:"Which deployment model lets a company keep sensitive data in its own datacentre and also use the public cloud?",
+ o:["Public cloud","Private cloud","Hybrid cloud","Serverless"],a:2,
+ e:"Hybrid cloud combines on-premises (private) and public cloud, and lets data and applications move between them.",s:"#deployment"},
+{d:1,t:'s',q:"During a sale, a shop adds VMs automatically, then removes them when traffic falls. Which cloud benefit does this show?",
+ o:["Scalability","Governance","Security","Sustainability"],a:0,
+ e:"Scalability means adding or removing resources to match demand. Doing it automatically is called autoscaling.",s:"#benefits"},
+{d:1,t:'s',q:"Which benefit of the cloud is supported by a service level agreement (SLA) that guarantees uptime?",
+ o:["High availability","Cost predictability","Manageability","Sustainability"],a:0,
+ e:"High availability means keeping resources available despite disruptions. An SLA states the uptime the provider guarantees, such as 99.99%.",s:"#benefits"},
+{d:1,t:'m',q:"Which two actions are examples of horizontal scaling (scaling out)? Choose two.",
+ o:["Adding more VM instances behind a load balancer","Adding more RAM to an existing VM","Adding more container replicas","Moving a VM to a larger size"],a:[0,2],
+ e:"Horizontal scaling adds or removes instances. Adding RAM or choosing a larger size is vertical scaling (scaling up).",s:"#benefits"},
+{d:1,t:'s',q:"Which of these is an example of SaaS?",
+ o:["Azure Virtual Machines","Azure App Service","Microsoft 365","Azure Kubernetes Service"],a:2,
+ e:"Microsoft 365 is finished software used over the internet. Virtual Machines are IaaS, and App Service is PaaS.",s:"#service-types"},
+{d:1,t:'yn',q:"For each statement, choose Yes or No.",
+ o:["A hybrid cloud can include an on-premises datacentre.","In a public cloud, each customer must buy and install their own physical servers.","A private cloud can be hosted in a company's own datacentre."],a:[true,false,true],
+ e:"Public cloud hardware belongs to the provider and is shared among customers. A private cloud is dedicated to one organisation and can sit in its own datacentre.",s:"#deployment"},
+{d:1,t:'s',q:"A team wants to forecast cloud spend and avoid unexpected bills. Which cloud benefit is this?",
+ o:["Reliability","Cost predictability","High availability","Scalability"],a:1,
+ e:"Cost predictability means forecasting and tracking spend, for example with the pricing calculator and budget alerts.",s:"#benefits"},
+{d:1,t:'s',q:"A company moves a legacy Windows Server application to an Azure VM with no code changes, and patches the OS itself. Which approach is this?",
+ o:["SaaS","PaaS","IaaS (lift and shift)","Serverless"],a:2,
+ e:"Moving servers as they are onto VMs is a lift-and-shift migration on IaaS. The customer still patches the OS and the app.",s:"#service-types"},
+{d:1,t:'s',q:"Which cloud service type leaves the customer with the least management responsibility?",
+ o:["IaaS","PaaS","SaaS","On-premises"],a:2,
+ e:"With SaaS the provider manages every layer. The customer manages accounts, licences and who may see their data.",s:"#service-types"},
+
+/* ---------- Domain 2: architecture and services (20) ---------- */
+{d:2,t:'s',q:"What is an Azure region pair?",
+ o:["Two datacentres in the same building","Two regions in the same geography, paired for disaster recovery","Two subscriptions that share one bill","Two availability zones in one region"],a:1,
+ e:"Paired regions are in the same geography, usually hundreds of miles apart. Updates roll out to one at a time, and one is recovered first in a wide outage.",s:"#azure"},
+{d:2,t:'s',q:"Which feature protects a VM from the failure of an entire datacentre within a region?",
+ o:["Availability zones","Resource groups","Tags","Management groups"],a:0,
+ e:"An availability zone is a separate datacentre location in a region with its own power, cooling and networking. VMs in different zones survive a datacentre failure.",s:"#azure"},
+{d:2,t:'s',q:"Which of these is an example of an Azure sovereign region?",
+ o:["East US","Azure Government","A region pair","An availability zone"],a:1,
+ e:"Sovereign regions, such as Azure Government (US) and Azure China, are isolated instances of Azure for legal and compliance needs.",s:"#azure"},
+{d:2,t:'m',q:"Which two statements about resource groups are true? Choose two.",
+ o:["A resource can belong to only one resource group","Resource groups can be nested inside each other","Deleting a resource group deletes the resources in it","A resource group must be in the same region as every resource in it"],a:[0,2],
+ e:"Each resource is in exactly one group, and deleting the group deletes its resources. Groups cannot be nested, and resources inside a group can be in other regions.",s:"#azure"},
+{d:2,t:'s',q:"What is the correct order of the Azure resource hierarchy, from top to bottom?",
+ o:["Subscription, management group, resource group, resource","Management group, subscription, resource group, resource","Resource group, subscription, management group, resource","Management group, resource group, subscription, resource"],a:1,
+ e:"Management groups contain subscriptions, subscriptions contain resource groups, and resource groups contain resources. Policy and access flow downward.",s:"#azure"},
+{d:2,t:'s',q:"Which Azure service runs a container from an image without you managing a VM or an orchestrator?",
+ o:["Azure Container Instances","Azure Virtual Desktop","Azure Load Balancer","Azure Bastion"],a:0,
+ e:"Container Instances runs containers directly and bills by the second. AKS is the service for orchestrating many containers at scale.",s:"#reference"},
+{d:2,t:'s',q:"You need to host a web app and want Azure to manage the servers and the operating system. Which service fits best?",
+ o:["Azure Virtual Machines","Azure App Service","Azure Virtual Network","Azure Data Box"],a:1,
+ e:"App Service is a managed PaaS for web apps and APIs. With Virtual Machines you manage the operating system yourself.",s:"#reference"},
+{d:2,t:'yn',q:"For each statement, choose Yes or No.",
+ o:["Resources in different virtual networks can communicate with each other by default.","Virtual network peering connects two virtual networks over the Microsoft backbone network.","ExpressRoute sends traffic over the public internet."],a:[false,true,false],
+ e:"Virtual networks are isolated until you connect them. Peering uses Microsoft's private backbone. ExpressRoute is a private connection that does not use the public internet.",s:"#reference",gap:true},
+{d:2,t:'s',q:"A company needs a private, dedicated connection from its datacentre to Azure that does not use the public internet. Which service should it use?",
+ o:["VPN Gateway","ExpressRoute","Azure DNS","A network security group"],a:1,
+ e:"ExpressRoute is a private line provided through a connectivity partner. A VPN gateway sends encrypted traffic over the public internet.",s:"#reference"},
+{d:2,t:'s',q:"Which storage redundancy option keeps copies in a second region and survives the loss of the whole primary region?",
+ o:["Locally redundant storage (LRS)","Zone-redundant storage (ZRS)","Geo-redundant storage (GRS)","Premium SSD"],a:2,
+ e:"GRS copies data to the paired region. LRS keeps three copies in one datacentre, and ZRS keeps copies across zones within one region.",s:"#azure",gap:true},
+{d:2,t:'s',q:"Which Blob Storage access tier has the lowest storage cost, suits rarely accessed data, and needs hours to rehydrate before reading?",
+ o:["Hot","Cool","Archive","Premium"],a:2,
+ e:"Archive is offline storage. You must rehydrate a blob to Hot or Cool before you can read it, which takes hours.",s:"#azure",gap:true},
+{d:2,t:'s',q:"Which Azure service provides managed file shares that machines can mount over SMB?",
+ o:["Azure Blob Storage","Azure Files","Azure Queue Storage","Azure Table Storage"],a:1,
+ e:"Azure Files provides SMB and NFS file shares. Blob Storage holds objects and is not mounted as a share.",s:"#reference"},
+{d:2,t:'s',q:"A company must move 80 TB of data to Azure from a site with a slow internet link. Which service helps most?",
+ o:["Azure Data Box","Azure DNS","Azure Policy","Azure Advisor"],a:0,
+ e:"Data Box is a physical device that you fill and ship to Microsoft for upload. It suits very large transfers over slow links.",s:"#reference",gap:true},
+{d:2,t:'s',q:"Which statement correctly describes authentication and authorization?",
+ o:["Authentication decides what you can do. Authorization proves who you are.","Authentication proves who you are. Authorization decides what you can do.","Both prove who you are.","Both decide what you can do."],a:1,
+ e:"Authentication verifies identity. Authorization grants permissions to that verified identity.",gap:true},
+{d:2,t:'s',q:"A user must approve a sign-in on their phone in addition to entering a password. Which feature is this?",
+ o:["Multifactor authentication (MFA)","Single sign-on (SSO)","Role-based access control","A resource lock"],a:0,
+ e:"MFA requires two or more proofs of identity, such as something you know, something you have or something you are.",gap:true},
+{d:2,t:'m',q:"Which two are passwordless authentication methods? Choose two.",
+ o:["Windows Hello for Business","A FIDO2 security key","A password plus an SMS code","Security questions"],a:[0,1],
+ e:"Passwordless methods replace the password with something you have or are, such as Windows Hello, a FIDO2 key or the Microsoft Authenticator app. A password plus SMS still uses a password.",gap:true},
+{d:2,t:'s',q:"Which service lets you require MFA only when a user signs in from an unfamiliar location?",
+ o:["Conditional Access","Azure Policy","Azure Advisor","Resource tags"],a:0,
+ e:"Conditional Access applies rules to sign-ins based on signals such as location, device and risk.",gap:true},
+{d:2,t:'s',q:"A company wants business partners to sign in to its apps with their own organisation's accounts. Which capability fits?",
+ o:["Microsoft Entra B2B collaboration (external identities)","Microsoft Entra Domain Services","Azure Load Balancer","Azure Site Recovery"],a:0,
+ e:"B2B collaboration invites external users as guests who sign in with their own identities.",gap:true},
+{d:2,t:'s',q:"In the defence in depth model, which layer includes DDoS protection?",
+ o:["Perimeter","Data","Application","Identity and access"],a:0,
+ e:"Defence in depth uses layers: physical security, identity and access, perimeter, network, compute, application and data. DDoS protection is a perimeter control.",gap:true},
+{d:2,t:'s',q:"Which Azure feature lets you give a user permission to manage resources in only one resource group?",
+ o:["Azure role-based access control (RBAC)","Azure Policy","Azure Cost Management","A resource lock"],a:0,
+ e:"RBAC assigns a role to a user, group or app at a scope, such as one resource group. Policy controls which resources may be created, not who may manage them.",s:"#reference",gap:true},
+
+/* ---------- Domain 3: management and governance (17) ---------- */
+{d:3,t:'s',q:"Which tool estimates the monthly cost of Azure resources before you deploy them?",
+ o:["The pricing calculator","Azure Advisor","Azure Service Health","Azure Policy"],a:0,
+ e:"The pricing calculator estimates the cost of services and configurations. The TCO calculator compares on-premises with Azure.",gap:true},
+{d:3,t:'s',q:"A company wants to compare the cost of running its servers on-premises with running them in Azure. Which tool fits?",
+ o:["The Total Cost of Ownership (TCO) calculator","Azure Monitor","Azure Cloud Shell","Azure Arc"],a:0,
+ e:"The TCO calculator compares the cost of an on-premises workload with the equivalent in Azure.",gap:true},
+{d:3,t:'s',q:"Which service lets you analyse current Azure spending and set budgets with alerts?",
+ o:["Microsoft Cost Management","Azure Service Health","Microsoft Purview","Azure DNS"],a:0,
+ e:"Cost Management shows where money goes and lets you set budgets that send alerts. A budget warns you, it does not stop spending.",gap:true},
+{d:3,t:'m',q:"Which two factors affect the cost of an Azure resource? Choose two.",
+ o:["The region where it is deployed","The resource type and size","The name of the resource group","The colour theme of the portal"],a:[0,1],
+ e:"Cost depends on the type and size of the resource, the region, how long it runs, and data transfer. Names do not change the price.",gap:true},
+{d:3,t:'s',q:"How can a company see Azure costs by department?",
+ o:["Apply a department tag to resources and report by tag","Rename the subscription","Delete unused resource groups","Use Azure Bastion"],a:0,
+ e:"Tags are name and value labels on resources. Cost analysis can group spend by tag. Tags are not inherited from the resource group by default.",s:"#azure",gap:true},
+{d:3,t:'s',q:"Which service can deny the creation of resources outside approved regions?",
+ o:["Azure Policy","Azure Advisor","Azure Monitor","Azure Migrate"],a:0,
+ e:"Azure Policy checks resources against rules and can deny, audit or fix those that do not comply.",s:"#reference",gap:true},
+{d:3,t:'s',q:"How can you stop a critical resource being deleted by accident, even by someone with Owner access?",
+ o:["Add a CanNotDelete resource lock","Add a tag named do-not-delete","Move it to another subscription","Turn on Azure Monitor"],a:0,
+ e:"A delete lock blocks deletion until the lock is removed, whatever the person's role. A tag does nothing to prevent it.",s:"#azure",gap:true},
+{d:3,t:'s',q:"Where can you find Microsoft's audit reports and compliance documentation?",
+ o:["The Service Trust Portal","Azure Cloud Shell","Azure Marketplace","Azure Advisor"],a:0,
+ e:"The Service Trust Portal publishes Microsoft's audit reports and compliance documents.",gap:true},
+{d:3,t:'s',q:"Which service helps you discover, classify and govern data across on-premises, multicloud and SaaS sources?",
+ o:["Microsoft Purview","Azure Load Balancer","Azure Functions","Azure DNS"],a:0,
+ e:"Purview is a data governance and compliance service. It scans data sources and classifies the data it finds.",s:"#azure",gap:true},
+{d:3,t:'s',q:"Which Azure tool is a browser-based command line that is already signed in to your account?",
+ o:["Azure Cloud Shell","Azure Arc","Azure Data Box","Azure Bastion"],a:0,
+ e:"Cloud Shell runs in the browser and offers Bash with Azure CLI, or PowerShell, with nothing to install.",s:"#azure"},
+{d:3,t:'yn',q:"For each statement, choose Yes or No.",
+ o:["Azure CLI commands can be run from Azure Cloud Shell.","Azure PowerShell can be used to automate the creation of Azure resources.","The Azure portal must be installed on your computer before you can use it."],a:[true,true,false],
+ e:"Cloud Shell offers both Azure CLI and PowerShell. The portal is a web interface and needs only a browser.",s:"#azure"},
+{d:3,t:'s',q:"A company wants to manage on-premises servers and servers in another cloud from the Azure portal. Which service should it use?",
+ o:["Azure Arc","Azure Site Recovery","Azure Front Door","Azure Blob Storage"],a:0,
+ e:"Azure Arc extends Azure management and governance to resources outside Azure.",s:"#azure"},
+{d:3,t:'m',q:"Which two options deploy Azure resources from a declarative template? Choose two.",
+ o:["ARM templates","Bicep files","Azure Cloud Shell","Azure Service Health"],a:[0,1],
+ e:"ARM templates (JSON) and Bicep files describe the resources you want, and Azure builds them. Cloud Shell is a place to run commands, not a template format.",s:"#azure",gap:true},
+{d:3,t:'s',q:"Which service gives personalised recommendations to improve reliability, security, performance and cost?",
+ o:["Azure Advisor","Azure Service Health","Azure Policy","Azure Migrate"],a:0,
+ e:"Azure Advisor analyses your resources and recommends improvements in reliability, security, cost, operational excellence and performance.",gap:true},
+{d:3,t:'s',q:"Which service tells you about Azure outages and planned maintenance that affect your resources?",
+ o:["Azure Service Health","Azure Cost Management","Microsoft Entra ID","Azure Files"],a:0,
+ e:"Service Health reports Azure incidents, planned maintenance and advisories for the services and regions you use.",gap:true},
+{d:3,t:'s',q:"Which part of Azure Monitor lets you run queries over collected log data?",
+ o:["Log Analytics","Azure Bastion","Azure Data Box","Azure Policy"],a:0,
+ e:"Log Analytics stores logs in a workspace and uses Kusto Query Language (KQL) to query them.",s:"#azure"},
+{d:3,t:'s',q:"Which service helps you monitor the performance of a web application and detect failures?",
+ o:["Application Insights","Azure DNS","Azure Files","Azure Arc"],a:0,
+ e:"Application Insights watches an app from inside: requests, failures, slow calls and users.",s:"#azure"}
+];
+
+</script>
+<script>
+(function(){
+  var D={1:'Cloud concepts',2:'Architecture and services',3:'Management and governance'};
+  var app=document.getElementById('examApp'), S=null, timer=null;
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function count(d){return QUESTIONS.filter(function(q){return !d||q.d===d;}).length;}
+
+  /* ---- scoring helpers ---- */
+  function answered(q,a){
+    if(q.t==='s') return a!==null&&a!==undefined;
+    if(q.t==='m') return Array.isArray(a)&&a.length>0;
+    return Array.isArray(a)&&a.length===q.o.length&&a.every(function(x){return x===true||x===false;});
+  }
+  function correct(q,a){
+    if(!answered(q,a)) return false;
+    if(q.t==='s') return a===q.a;
+    if(q.t==='m') return a.slice().sort().join()===q.a.slice().sort().join();
+    return a.every(function(x,i){return x===q.a[i];});
+  }
+  function correctText(q){
+    if(q.t==='s') return q.o[q.a];
+    if(q.t==='m') return q.a.map(function(i){return q.o[i];}).join(' | ');
+    return q.o.map(function(s,i){return (i+1)+'. '+(q.a[i]?'Yes':'No');}).join('  ');
+  }
+
+  /* ---- intro ---- */
+  function intro(){
+    clearInterval(timer); S=null;
+    app.innerHTML=
+      '<div class="xcard"><h3>Start a practice session</h3>'+
+      '<div class="xopts"><label><input type="checkbox" id="xStudy"> Show the answer after each question</label>'+
+      '<label><input type="checkbox" id="xTimed"> Use a 45-minute timer</label></div>'+
+      '<div class="xstart">'+
+      '<button class="btn primary" data-s="0">Full practice exam ('+count(0)+' questions)</button>'+
+      '<button class="btn" data-s="1">Cloud concepts ('+count(1)+')</button>'+
+      '<button class="btn" data-s="2">Architecture and services ('+count(2)+')</button>'+
+      '<button class="btn" data-s="3">Management and governance ('+count(3)+')</button></div>'+
+      '<p class="fine">The real exam length and time vary, so check the exam page before you sit it. The timer here is only for pacing practice.</p></div>';
+    app.querySelectorAll('[data-s]').forEach(function(b){
+      b.addEventListener('click',function(){start(QUESTIONS.filter(function(q){var d=+b.getAttribute('data-s');return !d||q.d===d;}));});
+    });
+  }
+
+  /* ---- start ---- */
+  function start(pool){
+    var study=document.getElementById('xStudy')?document.getElementById('xStudy').checked:(S&&S.study);
+    var timed=document.getElementById('xTimed')?document.getElementById('xTimed').checked:(S&&S.timed);
+    var qs=shuffle(pool);
+    S={items:qs.map(function(q){return {q:q,order:q.t==='yn'?q.o.map(function(_,i){return i;}):shuffle(q.o.map(function(_,i){return i;}))};}),
+       ans:qs.map(function(){return null;}), flags:qs.map(function(){return false;}), checked:qs.map(function(){return false;}),
+       cur:0, study:study, timed:timed, warned:false, end:timed?Date.now()+45*60*1000:0};
+    if(timed){clearInterval(timer);timer=setInterval(tick,1000);}
+    render(); document.getElementById('exam').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function tick(){
+    var left=Math.max(0,Math.round((S.end-Date.now())/1000)), el=document.getElementById('xTimer');
+    if(el){var m=Math.floor(left/60),s=left%60;el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' left';}
+    if(left<=0){clearInterval(timer);submit(true);}
+  }
+
+  /* ---- question view ---- */
+  function render(){
+    var i=S.cur, it=S.items[i], q=it.q, a=S.ans[i], locked=S.checked[i], body='';
+    if(q.t==='s'||q.t==='m'){
+      var type=q.t==='s'?'radio':'checkbox';
+      body=it.order.map(function(oi){
+        var chk=q.t==='s'?(a===oi):(Array.isArray(a)&&a.indexOf(oi)>-1);
+        var cls='opt';
+        if(locked){var isC=q.t==='s'?(oi===q.a):(q.a.indexOf(oi)>-1); if(isC)cls+=' ok'; else if(chk)cls+=' no';}
+        return '<label class="'+cls+'"><input type="'+type+'" name="q" value="'+oi+'"'+(chk?' checked':'')+(locked?' disabled':'')+'><span>'+esc(q.o[oi])+'</span></label>';
+      }).join('');
+    }else{
+      body='<table class="yn"><tbody>'+q.o.map(function(st,si){
+        var v=Array.isArray(a)?a[si]:null, cls='';
+        if(locked){cls=(v===q.a[si])?'ok':'no';}
+        return '<tr class="'+cls+'"><td>'+esc(st)+'</td><td class="c"><label><input type="radio" name="y'+si+'" value="1"'+(v===true?' checked':'')+(locked?' disabled':'')+'> Yes</label></td>'+
+               '<td class="c"><label><input type="radio" name="y'+si+'" value="0"'+(v===false?' checked':'')+(locked?' disabled':'')+'> No</label></td></tr>';
+      }).join('')+'</tbody></table>';
+    }
+    var fb='';
+    if(locked){var ok=correct(q,a);
+      fb='<div class="fb '+(ok?'ok':'no')+'"><b>'+(ok?'Correct.':'Not quite.')+' '+(ok?'':'Correct answer: '+esc(correctText(q)))+'</b>'+esc(q.e)+'</div>';}
+    var nans=S.ans.filter(function(x,k){return answered(S.items[k].q,x);}).length;
+    app.innerHTML=
+      '<div class="xcard"><div class="xbar"><span class="prog">Question '+(i+1)+' of '+S.items.length+'<span class="dom">'+D[q.d]+'</span></span>'+
+      (S.timed?'<span class="tm" id="xTimer"></span>':'')+'</div>'+
+      '<div class="meter" aria-hidden="true"><span style="width:'+Math.round(nans/S.items.length*100)+'%"></span></div>'+
+      '<h3 class="xq" tabindex="-1" id="xq">'+esc(q.q)+'</h3>'+body+fb+
+      '<div class="nav"><button class="btn" id="xPrev"'+(i===0?' disabled':'')+'>Previous</button>'+
+      '<button class="btn" id="xNext"'+(i===S.items.length-1?' disabled':'')+'>Next</button>'+
+      '<button class="btn flag" id="xFlag" aria-pressed="'+S.flags[i]+'">'+(S.flags[i]?'Flagged for review':'Flag for review')+'</button>'+
+      (S.study&&!locked?'<button class="btn" id="xCheck">Check answer</button>':'')+
+      '<span class="sp"></span><button class="btn primary" id="xSubmit">'+(S.warned?'Submit anyway':'Submit and see results')+'</button></div>'+
+      (S.warned?'<p class="warnmsg">'+(S.items.length-nans)+' question(s) are unanswered. Submit anyway, or go back to answer them.</p>':'')+
+      '<div class="qmap" id="xmap" role="group" aria-label="Question list"></div></div>';
+    map();
+    if(S.timed) tick();
+    app.querySelectorAll('input').forEach(function(inp){inp.addEventListener('change',record);});
+    document.getElementById('xPrev').addEventListener('click',function(){go(S.cur-1);});
+    document.getElementById('xNext').addEventListener('click',function(){go(S.cur+1);});
+    document.getElementById('xFlag').addEventListener('click',function(){S.flags[S.cur]=!S.flags[S.cur];render();});
+    var ck=document.getElementById('xCheck'); if(ck) ck.addEventListener('click',function(){S.checked[S.cur]=true;render();});
+    document.getElementById('xSubmit').addEventListener('click',function(){submit(false);});
+  }
+  function map(){
+    var m=document.getElementById('xmap'); if(!m) return;
+    m.innerHTML=S.items.map(function(it,k){
+      var cls=(answered(it.q,S.ans[k])?'done ':'')+(S.flags[k]?'flag':'');
+      return '<button type="button" class="'+cls+'" data-k="'+k+'" aria-label="Question '+(k+1)+(answered(it.q,S.ans[k])?', answered':'')+(S.flags[k]?', flagged':'')+'"'+(k===S.cur?' aria-current="true"':'')+'>'+(k+1)+'</button>';
+    }).join('');
+    m.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){go(+b.getAttribute('data-k'));});});
+  }
+  function go(k){ if(k<0||k>=S.items.length) return; S.cur=k; render(); var h=document.getElementById('xq'); if(h) h.focus({preventScroll:true}); }
+  function record(){
+    var q=S.items[S.cur].q;
+    if(q.t==='s'){var r=app.querySelector('input[name=q]:checked'); S.ans[S.cur]=r?+r.value:null;}
+    else if(q.t==='m'){S.ans[S.cur]=[].map.call(app.querySelectorAll('input[name=q]:checked'),function(x){return +x.value;});}
+    else{S.ans[S.cur]=q.o.map(function(_,si){var r=app.querySelector('input[name=y'+si+']:checked'); return r?r.value==='1':null;});}
+    var nans=S.ans.filter(function(x,k){return answered(S.items[k].q,x);}).length;
+    var bar=app.querySelector('.meter>span'); if(bar) bar.style.width=Math.round(nans/S.items.length*100)+'%';
+    map();
+    if(S.study&&q.t==='s'){S.checked[S.cur]=true;render();}
+  }
+
+  /* ---- submit and results ---- */
+  function submit(force){
+    var un=S.items.filter(function(it,k){return !answered(it.q,S.ans[k]);}).length;
+    if(un>0&&!S.warned&&!force){S.warned=true;render();return;}
+    clearInterval(timer); results();
+  }
+  function results(){
+    var total=S.items.length, right=0, dom={1:[0,0],2:[0,0],3:[0,0]}, missed=[];
+    S.items.forEach(function(it,k){
+      var ok=correct(it.q,S.ans[k]); dom[it.q.d][1]++; if(ok){right++;dom[it.q.d][0]++;}else missed.push(it.q);
+    });
+    var pct=Math.round(right/total*100);
+    var msg=pct>=80?'Strong result. Keep practising with other question sets so you see different wording.':
+            pct>=70?'Close. Read the explanations for the questions you missed, then try again.':
+            'Not yet. Re-read the notes and the explanations below, then take it again.';
+    var doms=[1,2,3].filter(function(d){return dom[d][1]>0;}).map(function(d){
+      var p=Math.round(dom[d][0]/dom[d][1]*100);
+      return '<div><span>'+D[d]+'</span><span class="track"><i style="width:'+p+'%"></i></span><span>'+dom[d][0]+' / '+dom[d][1]+'</span></div>';}).join('');
+    app.innerHTML=
+      '<div class="xcard"><h3>Results</h3><div class="score"><span class="big">'+pct+'%</span><span><b>'+right+' of '+total+' correct.</b><br>'+msg+'</span></div>'+
+      '<div class="doms">'+doms+'</div>'+
+      '<p class="fine">The real exam reports a scaled score, where 700 of 1000 passes. That is not the same as 70 percent correct, so use this as a guide only.</p>'+
+      '<div class="xstart"><button class="btn primary" id="xRetry"'+(missed.length?'':' disabled')+'>Retry the '+missed.length+' missed question'+(missed.length===1?'':'s')+'</button>'+
+      '<button class="btn" id="xNew">Start a new session</button></div>'+
+      '<div class="filters" role="group" aria-label="Filter the review"><button class="btn" data-f="all" aria-pressed="true">All answers</button><button class="btn" data-f="miss" aria-pressed="false">Missed</button>'+
+      '<button class="btn" data-f="flag" aria-pressed="false">Flagged</button><button class="btn" data-f="new" aria-pressed="false">New topics</button></div></div>'+
+      '<div id="xrev">'+S.items.map(function(it,k){return review(it,k);}).join('')+'</div>';
+    document.getElementById('xNew').addEventListener('click',intro);
+    document.getElementById('xRetry').addEventListener('click',function(){start(missed);});
+    app.querySelectorAll('[data-f]').forEach(function(b){b.addEventListener('click',function(){
+      app.querySelectorAll('[data-f]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      var f=b.getAttribute('data-f');
+      document.querySelectorAll('#xrev .rev').forEach(function(r){
+        var show=f==='all'||(f==='miss'&&r.getAttribute('data-ok')==='0')||(f==='flag'&&r.getAttribute('data-flag')==='1')||(f==='new'&&r.getAttribute('data-gap')==='1');
+        r.hidden=!show;});
+    });});
+    document.getElementById('exam').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function review(it,k){
+    var q=it.q, a=S.ans[k], ok=correct(q,a), body='';
+    if(q.t==='yn'){
+      body='<table class="yn"><tbody>'+q.o.map(function(st,si){
+        var v=Array.isArray(a)?a[si]:null, good=v===q.a[si];
+        return '<tr class="'+(good?'ok':'no')+'"><td>'+esc(st)+'</td><td class="c">You: '+(v===null?'no answer':(v?'Yes':'No'))+'</td><td class="c">Correct: '+(q.a[si]?'Yes':'No')+'</td></tr>';}).join('')+'</tbody></table>';
+    }else{
+      body=q.o.map(function(opt,oi){
+        var isC=q.t==='s'?(oi===q.a):(q.a.indexOf(oi)>-1), isY=q.t==='s'?(a===oi):(Array.isArray(a)&&a.indexOf(oi)>-1);
+        var cls='opt'+(isC?' ok':(isY?' no':''));
+        return '<div class="'+cls+'"><span>'+esc(opt)+(isC?'<span class="tag ok">Correct answer</span>':'')+(isY?'<span class="tag you">Your answer</span>':'')+'</span></div>';
+      }).join('');
+    }
+    return '<div class="rev" data-ok="'+(ok?1:0)+'" data-flag="'+(S.flags[k]?1:0)+'" data-gap="'+(q.gap?1:0)+'">'+
+      '<h4><span class="st '+(ok?'ok':'no')+'">'+(ok?'Correct':(answered(q,a)?'Incorrect':'Unanswered'))+'</span>'+(k+1)+'. '+esc(q.q)+'<span class="dom">'+D[q.d]+'</span></h4>'+body+
+      '<div class="fb"><b>Why</b>'+esc(q.e)+'</div>'+
+      (q.gap?'<p class="new"><b>New topic:</b> the notes above do not explain this, so the explanation is the lesson.</p>':'')+
+      (q.s?'<p class="new"><a href="'+q.s+'">Read the related notes above</a></p>':'')+'</div>';
+  }
+
+  /* ---- teacher answer key ---- */
+  document.getElementById('keyBody').innerHTML='<table><thead><tr><th>#</th><th>Skill area</th><th>Answer</th><th>Why</th></tr></thead><tbody>'+
+    QUESTIONS.map(function(q,i){return '<tr><td data-l="Question">'+(i+1)+'</td><td data-l="Skill area">'+D[q.d]+'</td><td data-l="Answer">'+esc(correctText(q))+'</td><td data-l="Why">'+esc(q.e)+'</td></tr>';}).join('')+'</tbody></table>';
+
+  intro();
+})();
+
 </script>
 </body>
 </html>
